@@ -3,82 +3,132 @@ const App = {
     theme: 'light',
     page: 'dashboard',
     query: '',
-    selfDeclare: {
-      checklist: [
-        { id: 'sd1', text: 'KTP (Kartu Tanda Penduduk)', checked: false },
-        { id: 'sd2', text: 'KK (Kartu Keluarga)', checked: false },
-        { id: 'sd3', text: 'NPWP (jika ada)', checked: false },
-        { id: 'sd4', text: 'Akta Pendirian Usaha (jika ada)', checked: false },
-        { id: 'sd5', text: 'Surat Keterangan Domisili Usaha', checked: false },
-        { id: 'sd6', text: 'Pas Foto 3x4 (2 lembar)', checked: false },
-      ],
-      simulation: { omzet: '', karyawan: '', modal: '' },
-      notes: '',
-    },
-    reguler: {
-      checklist: [
-        { id: 'rg1', text: 'Daftar ke LPH terafiliasi MUI', checked: false },
-        { id: 'rg2', text: 'Audit halal oleh auditor LPH', checked: false },
-        { id: 'rg3', text: 'Sidang fatwa oleh Komisi Fatwa MUI', checked: false },
-        { id: 'rg4', text: 'Terbit Sertifikat Halal', checked: false },
-      ],
-      alur: [
-        { label: 'Pendaftaran', desc: 'Daftar via SIHALAL', status: 'done' },
-        { label: 'Dokumen', desc: 'Upload persyaratan', status: 'done' },
-        { label: 'Audit LPH', desc: 'Audit langsung oleh LPH', status: 'active' },
-        { label: 'Fatwa MUI', desc: 'Sidang komisi fatwa', status: 'pending' },
-        { label: 'Terbit SH', desc: 'Sertifikat Halal terbit', status: 'pending' },
-      ],
-      monitoring: [
-        { tahap: 'Pendaftaran', status: 'Selesai', tgl: '01-06-2026', catatan: 'Berkas lengkap' },
-        { tahap: 'Verifikasi', status: 'Selesai', tgl: '05-06-2026', catatan: 'Data valid' },
-        { tahap: 'Audit', status: 'Proses', tgl: '-', catatan: 'Menunggu jadwal audit' },
-      ],
-      notes: '',
-    },
-    fasilitasi: {
-      checklist: [
-        { id: 'fs1', text: 'Cek informasi program di OSS', checked: false },
-        { id: 'fs2', text: 'Siapkan proposal sederhana', checked: false },
-        { id: 'fs3', text: 'Daftar melalui dinas terkait', checked: false },
-      ],
-      programs: [
-        { nama: 'BPUM (BLT UMKM)', sumber: 'Kemenkop UKM', status: 'Tutup' },
-        { nama: 'KUR (Kredit Usaha Rakyat)', sumber: 'Perbankan', status: 'Dibuka' },
-        { nama: 'Sertifikasi Halal Gratis (SEHATI)', sumber: 'BPJPH', status: 'Dibuka' },
-        { nama: 'Pelatihan UMKM Naik Kelas', sumber: 'Dinas Koperasi', status: 'Pendaftaran' },
-      ],
-      trackings: [
-        { program: 'SEHATI', tglDaftar: '10-05-2026', status: 'Proses Verifikasi' },
-      ],
-      notes: '',
-    },
-    p3h: {
-      checklist: [
-        { id: 'p1', text: 'Mengikuti Bimtek P3H', checked: false },
-        { id: 'p2', text: 'Lulus Ujian Kompetensi P3H', checked: false },
-        { id: 'p3', text: 'Terdaftar di BPJPH sebagai P3H', checked: false },
-      ],
-      alur: [
-        { label: 'Bimtek', desc: 'Pelatihan pendamping halal', status: 'done' },
-        { label: 'Ujian', desc: 'Ujian kompetensi P3H', status: 'active' },
-        { label: 'SK P3H', desc: 'Terbit SK pendamping', status: 'pending' },
-        { label: 'Pendampingan', desc: 'Pendampingan ke pelaku usaha', status: 'pending' },
-      ],
-      regulasi: [
-        { peraturan: 'UU No. 33/2014', tentang: 'Jaminan Produk Halal' },
-        { peraturan: 'PP No. 39/2021', tentang: 'Penyelenggaraan JPH' },
-        { peraturan: 'PMA No. 26/2019', tentang: 'Sertifikasi Halal' },
-      ],
-      notes: '',
-    },
+    activeClientId: null,
+    clients: [
+      {
+        id: 'c1',
+        name: 'Diah Litasari',
+        nik: '3578066806740004',
+        birthPlace: 'Surabaya',
+        birthDate: '28-06-1974',
+        address: 'Jl. Pakis Wetan VII No. 14, Surabaya',
+        rtRw: '0014/003',
+        postalCode: '60256',
+        phone: '081343194567',
+        businessName: 'Litasari Catering',
+        businessType: 'Catering, Makanan',
+        permits: {
+          selfDeclare: {
+            status: 'not_started',
+            nib: '',
+            steps: [
+              { id: 'sd-s1', label: 'Siapkan Dokumen', desc: 'KTP, KK, NPWP, domisili', done: false, date: '', notes: '' },
+              { id: 'sd-s2', label: 'Daftar Akun OSS', desc: 'Buat akun di oss.go.id', done: false, date: '', notes: '' },
+              { id: 'sd-s3', label: 'Isi Data Diri & Usaha', desc: 'Lengkapi profil di OSS', done: false, date: '', notes: '' },
+              { id: 'sd-s4', label: 'Submit Pernyataan Mandiri', desc: 'Klik pernyataan mandiri di OSS', done: false, date: '', notes: '' },
+              { id: 'sd-s5', label: 'Cetak NIB', desc: 'Unduh dan cetak NIB', done: false, date: '', notes: '' },
+            ],
+            documents: [
+              { id: 'sd-d1', name: 'KTP', collected: true, notes: '' },
+              { id: 'sd-d2', name: 'Kartu Keluarga', collected: true, notes: '' },
+              { id: 'sd-d3', name: 'NPWP', collected: false, notes: '' },
+              { id: 'sd-d4', name: 'Pas Foto 3x4', collected: false, notes: '' },
+              { id: 'sd-d5', name: 'Surat Domisili Usaha', collected: false, notes: '' },
+            ],
+            notes: '',
+          },
+          reguler: {
+            status: 'not_started',
+            nib: '',
+            steps: [
+              { id: 'rg-s1', label: 'Daftar Akun SIHALAL', desc: 'Buat akun di ptsp.halal.go.id', done: false, date: '', notes: '' },
+              { id: 'rg-s2', label: 'Upload Dokumen', desc: 'Scan KTP, NPWP, NIB, dll', done: false, date: '', notes: '' },
+              { id: 'rg-s3', label: 'Pilih LPH', desc: 'Pilih LPH terafiliasi MUI', done: false, date: '', notes: '' },
+              { id: 'rg-s4', label: 'Jadwal Audit', desc: 'Tunggu jadwal dari LPH', done: false, date: '', notes: '' },
+              { id: 'rg-s5', label: 'Audit LPH', desc: 'Audit langsung ke tempat usaha', done: false, date: '', notes: '' },
+              { id: 'rg-s6', label: 'Sidang Fatwa MUI', desc: 'Komisi Fatwa MUI menetapkan', done: false, date: '', notes: '' },
+              { id: 'rg-s7', label: 'Terbit Sertifikat Halal', desc: 'Unduh sertifikat dari SIHALAL', done: false, date: '', notes: '' },
+            ],
+            documents: [
+              { id: 'rg-d1', name: 'Fotokopi KTP', collected: false, notes: '' },
+              { id: 'rg-d2', name: 'Fotokopi NPWP', collected: false, notes: '' },
+              { id: 'rg-d3', name: 'NIB', collected: false, notes: '' },
+              { id: 'rg-d4', name: 'Daftar Produk & Bahan', collected: false, notes: '' },
+              { id: 'rg-d5', name: 'Surat Pernyataan', collected: false, notes: '' },
+            ],
+            monitoring: [
+              { tahap: 'Pendaftaran', status: 'Belum', tgl: '-', catatan: '' },
+              { tahap: 'Verifikasi', status: 'Belum', tgl: '-', catatan: '' },
+              { tahap: 'Audit', status: 'Belum', tgl: '-', catatan: '' },
+              { tahap: 'Fatwa', status: 'Belum', tgl: '-', catatan: '' },
+            ],
+            notes: '',
+          },
+          fasilitasi: {
+            status: 'not_started',
+            steps: [
+              { id: 'fs-s1', label: 'Cari Program', desc: 'Cek program di OSS/disnaker', done: false, date: '', notes: '' },
+              { id: 'fs-s2', label: 'Siapkan Berkas', desc: 'Siapkan syarat administrasi', done: false, date: '', notes: '' },
+              { id: 'fs-s3', label: 'Daftar Program', desc: 'Submit pendaftaran online/offline', done: false, date: '', notes: '' },
+              { id: 'fs-s4', label: 'Follow Up', desc: 'Pantau status pendaftaran', done: false, date: '', notes: '' },
+            ],
+            registrations: [
+              { id: 'fs-r1', program: 'SEHATI (Sertifikasi Halal Gratis)', tglDaftar: '', status: 'Belum daftar', notes: '' },
+              { id: 'fs-r2', program: 'BPUM (BLT UMKM)', tglDaftar: '', status: 'Belum daftar', notes: '' },
+              { id: 'fs-r3', program: 'KUR (Kredit Usaha Rakyat)', tglDaftar: '', status: 'Belum daftar', notes: '' },
+            ],
+            notes: '',
+          },
+          p3h: {
+            status: 'not_started',
+            steps: [
+              { id: 'p3-s1', label: 'Daftar Bimtek', desc: 'Cari info bimtek P3H terdekat', done: false, date: '', notes: '' },
+              { id: 'p3-s2', label: 'Ikuti Bimtek', desc: 'Pelatihan pendamping halal', done: false, date: '', notes: '' },
+              { id: 'p3-s3', label: 'Ujian Kompetensi', desc: 'Ikuti ujian sertifikasi P3H', done: false, date: '', notes: '' },
+              { id: 'p3-s4', label: 'Terbit SK P3H', desc: 'SK dari BPJPH', done: false, date: '', notes: '' },
+              { id: 'p3-s5', label: 'Mulai Pendampingan', desc: 'Pendampingan ke pelaku UMKM', done: false, date: '', notes: '' },
+            ],
+            documents: [
+              { id: 'p3-d1', name: 'Ijazah Pendidikan', collected: false, notes: '' },
+              { id: 'p3-d2', name: 'KTP', collected: false, notes: '' },
+              { id: 'p3-d3', name: 'Pas Foto', collected: false, notes: '' },
+              { id: 'p3-d4', name: 'CV', collected: false, notes: '' },
+            ],
+            notes: '',
+          },
+        },
+      },
+    ],
   },
 }
 
+const PERMIT_INFO = {
+  selfDeclare: {
+    title: 'Self Declare',
+    desc: 'Perizinan berbasis pernyataan mandiri untuk usaha mikro (omzet < Rp300jt/thn). Gratis via OSS.',
+    icon: '&#9679;',
+  },
+  reguler: {
+    title: 'Reguler (Sertifikasi Halal)',
+    desc: 'Sertifikasi halal reguler melalui LPH dan MUI untuk usaha kecil-menengah.',
+    icon: '&#9679;',
+  },
+  fasilitasi: {
+    title: 'Fasilitasi',
+    desc: 'Program bantuan pemerintah untuk UMKM (BPUM, KUR, SEHATI, dll).',
+    icon: '&#9679;',
+  },
+  p3h: {
+    title: 'Pendamping Halal (P3H)',
+    desc: 'Menjadi pendamping proses produk halal bersertifikat BPJPH.',
+    icon: '&#9679;',
+  },
+}
+
+/* ===== Helpers ===== */
+
 function saveState() {
-  try {
-    localStorage.setItem('appState', JSON.stringify(App.state))
-  } catch (e) { /* quota exceeded */ }
+  try { localStorage.setItem('appState', JSON.stringify(App.state)) } catch (e) {}
 }
 
 function loadState() {
@@ -86,185 +136,334 @@ function loadState() {
     const saved = localStorage.getItem('appState')
     if (saved) {
       const parsed = JSON.parse(saved)
+      parsed.clients.forEach((c, i) => {
+        if (!c.permits.fasilitasi.registrations) {
+          c.permits.fasilitasi.registrations = [
+            { id: 'fs-r1', program: 'SEHATI', tglDaftar: '', status: 'Belum daftar', notes: '' },
+            { id: 'fs-r2', program: 'BPUM', tglDaftar: '', status: 'Belum daftar', notes: '' },
+            { id: 'fs-r3', program: 'KUR', tglDaftar: '', status: 'Belum daftar', notes: '' },
+          ]
+        }
+        if (!c.permits.reguler.monitoring) {
+          c.permits.reguler.monitoring = [
+            { tahap: 'Pendaftaran', status: 'Belum', tgl: '-', catatan: '' },
+            { tahap: 'Verifikasi', status: 'Belum', tgl: '-', catatan: '' },
+            { tahap: 'Audit', status: 'Belum', tgl: '-', catatan: '' },
+            { tahap: 'Fatwa', status: 'Belum', tgl: '-', catatan: '' },
+          ]
+        }
+      })
       Object.assign(App.state, parsed)
     }
-  } catch (e) { /* ignore */ }
+  } catch (e) {}
 }
 
-function getProgress(list) {
-  if (!list || list.length === 0) return 0
-  return Math.round((list.filter(i => i.checked).length / list.length) * 100)
+function getProgress(steps) {
+  if (!steps || steps.length === 0) return 0
+  return Math.round((steps.filter(s => s.done).length / steps.length) * 100)
+}
+
+function getDocProgress(docs) {
+  if (!docs || docs.length === 0) return 0
+  return Math.round((docs.filter(d => d.collected).length / docs.length) * 100)
+}
+
+function getStatusBadge(status) {
+  const map = {
+    not_started: '<span class="tag tag-danger">Belum dimulai</span>',
+    in_progress: '<span class="tag tag-warning">Proses</span>',
+    submitted: '<span class="tag tag-warning">Sudah diajukan</span>',
+    completed: '<span class="tag tag-success">Selesai</span>',
+  }
+  return map[status] || '<span class="tag tag-danger">Belum</span>'
+}
+
+function client() {
+  return App.state.clients.find(c => c.id === App.state.activeClientId)
+}
+
+function getStepStatusClass(step, steps) {
+  const idx = steps.indexOf(step)
+  const allPrevDone = steps.slice(0, idx).every(s => s.done)
+  if (step.done) return 'done'
+  if (allPrevDone) return 'active'
+  return 'pending'
+}
+
+/* ===== Client Selector ===== */
+
+function renderClientSelector() {
+  const c = client()
+  return `
+    <div class="client-bar">
+      <select id="clientSelect" class="client-select">
+        <option value="">-- Pilih klien --</option>
+        ${App.state.clients.map(cl => `
+          <option value="${cl.id}" ${cl.id === App.state.activeClientId ? 'selected' : ''}>
+            ${cl.businessName || cl.name}
+          </option>
+        `).join('')}
+      </select>
+      <button id="addClientBtn" class="btn btn-sm" title="Tambah klien">+ Klien Baru</button>
+      ${c ? `<button id="editClientBtn" class="btn btn-sm btn-outline" title="Edit data klien">&#9998;</button>` : ''}
+    </div>
+  `
+}
+
+function renderClientDetail(c) {
+  if (!c) return '<p style="color:var(--text-secondary);">Pilih klien terlebih dahulu.</p>'
+  return `
+    <div class="card client-info-card">
+      <div style="display:flex;justify-content:space-between;align-items:start;">
+        <div>
+          <h3 style="margin-bottom:0.25rem;">${c.businessName}</h3>
+          <p style="color:var(--text-secondary);font-size:0.85rem;">${c.name} &middot; ${c.nik}</p>
+          <p style="color:var(--text-secondary);font-size:0.85rem;">${c.address}</p>
+        </div>
+        <div style="text-align:right;font-size:0.85rem;">
+          <div>NIB: <strong>${c.permits.selfDeclare.nib || '-'}</strong></div>
+          <div style="color:var(--text-secondary);">${c.phone}</div>
+        </div>
+      </div>
+    </div>
+  `
 }
 
 /* ===== View Renderers ===== */
 
 function renderDashboard() {
-  const sd = App.state.selfDeclare
-  const rg = App.state.reguler
-  const fs = App.state.fasilitasi
-  const p3 = App.state.p3h
-
-  const sdProg = getProgress(sd.checklist)
-  const rgProg = getProgress(rg.checklist)
-  const fsProg = getProgress(fs.checklist)
-  const p3Prog = getProgress(p3.checklist)
-  const totalProg = Math.round(([sdProg, rgProg, fsProg, p3Prog].reduce((a,b)=>a+b,0))/4)
-
+  const activeClient = client()
   return `
     <div class="view active" id="view-dashboard">
       <div class="view-header">
         <h1>Dashboard</h1>
-        <p>Progress pengajuan perizinan UMKM & badan usaha</p>
+        <p>Kelola klien dan pantau progress perizinan UMKM</p>
       </div>
+      ${renderClientSelector()}
 
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-number">${totalProg}%</div>
-          <div class="stat-label">Progress Keseluruhan</div>
-          <div class="progress-bar"><div class="fill" style="width:${totalProg}%"></div></div>
-        </div>
-        <div class="stat-card success">
-          <div class="stat-number">${sdProg}%</div>
-          <div class="stat-label">Self Declare</div>
-        </div>
-        <div class="stat-card warning">
-          <div class="stat-number">${rgProg}%</div>
-          <div class="stat-label">Reguler (Halal)</div>
-        </div>
-        <div class="stat-card ${fsProg > 50 ? 'success' : 'danger'}">
-          <div class="stat-number">${fsProg}%</div>
-          <div class="stat-label">Fasilitasi</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">${p3Prog}%</div>
-          <div class="stat-label">Pendamping Halal</div>
-        </div>
-      </div>
+      ${!activeClient ? renderNoClient() : ''}
 
-      <div class="card">
-        <h3>Checklist Dokumen Per Modul</h3>
-        <div style="margin-top:0.5rem;">
-          ${[
-            { label: 'Self Declare', prog: sdProg, items: sd.checklist.filter(i=>i.checked).length, total: sd.checklist.length },
-            { label: 'Reguler', prog: rgProg, items: rg.checklist.filter(i=>i.checked).length, total: rg.checklist.length },
-            { label: 'Fasilitasi', prog: fsProg, items: fs.checklist.filter(i=>i.checked).length, total: fs.checklist.length },
-            { label: 'Pendamping Halal', prog: p3Prog, items: p3.checklist.filter(i=>i.checked).length, total: p3.checklist.length },
-          ].map(m => `
-            <div style="margin-bottom:0.75rem;">
-              <div style="display:flex;justify-content:space-between;font-size:0.85rem;">
-                <span>${m.label}</span>
-                <span>${m.items}/${m.total}</span>
+      ${activeClient ? renderClientDetail(activeClient) : ''}
+
+      ${activeClient ? `
+        <div class="stats-grid">
+          ${['selfDeclare','reguler','fasilitasi','p3h'].map(key => {
+            const info = PERMIT_INFO[key]
+            const p = activeClient.permits[key]
+            const prog = getProgress(p.steps)
+            return `
+              <div class="stat-card ${prog === 100 ? 'success' : prog > 0 ? 'warning' : 'danger'}" style="cursor:pointer;" onclick="navigate('${key}')">
+                <div class="stat-number">${prog}%</div>
+                <div class="stat-label">${info.title}</div>
+                <div class="progress-bar"><div class="fill" style="width:${prog}%"></div></div>
+                <div style="margin-top:0.5rem;">${getStatusBadge(p.status)}</div>
               </div>
-              <div class="progress-bar"><div class="fill" style="width:${m.prog}%"></div></div>
-            </div>
-          `).join('')}
+            `
+          }).join('')}
         </div>
-      </div>
+      ` : ''}
 
-      <div class="card">
-        <h3>Deadline Pengurusan</h3>
-        <ul class="deadline-list">
-          <li>
-            <span>Audit LPH (Reguler)</span>
-            <span class="deadline-date deadline-urgent">15-06-2026</span>
-          </li>
-          <li>
-            <span>Pendaftaran SEHATI gel. 2</span>
-            <span class="deadline-date deadline-soon">30-06-2026</span>
-          </li>
-          <li>
-            <span>Pendampingan P3H</span>
-            <span class="deadline-date deadline-safe">20-07-2026</span>
-          </li>
-        </ul>
-      </div>
+      ${activeClient ? `
+        <div class="card">
+          <h3>Semua Klien</h3>
+          ${renderClientTable()}
+        </div>
+      ` : ''}
     </div>`
 }
 
+function renderClientTable() {
+  if (App.state.clients.length === 0) return '<p style="color:var(--text-secondary);">Belum ada klien. Tambahkan klien baru untuk mulai.</p>'
+  return `
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Nama</th><th>Usaha</th><th>Self Declare</th><th>Reguler</th><th>Fasilitasi</th><th>P3H</th></tr></thead>
+        <tbody>
+          ${App.state.clients.map(c => `
+            <tr style="cursor:pointer;" onclick="selectClient('${c.id}');navigate('dashboard')">
+              <td><strong>${c.name}</strong></td>
+              <td>${c.businessName}</td>
+              <td>${getStatusBadge(c.permits.selfDeclare.status)}</td>
+              <td>${getStatusBadge(c.permits.reguler.status)}</td>
+              <td>${getStatusBadge(c.permits.fasilitasi.status)}</td>
+              <td>${getStatusBadge(c.permits.p3h.status)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `
+}
+
+function renderNoClient() {
+  return `
+    <div class="card" style="text-align:center;padding:2rem;">
+      <p style="color:var(--text-secondary);margin-bottom:1rem;">Pilih klien yang sudah ada atau tambah klien baru</p>
+      ${App.state.clients.length > 0 ? `
+        <div style="display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;">
+          ${App.state.clients.map(c => `
+            <button class="btn" onclick="selectClient('${c.id}');navigate('dashboard')">${c.businessName || c.name}</button>
+          `).join('')}
+        </div>
+      ` : '<p style="color:var(--text-secondary);">Belum ada klien.</p>'}
+    </div>
+  `
+}
+
+/* ===== Self Declare ===== */
+
 function renderSelfDeclare() {
-  const data = App.state.selfDeclare
-  const prog = getProgress(data.checklist)
+  if (!client()) return renderNoClientPage('self-declare')
+  const c = client()
+  const p = c.permits.selfDeclare
+  const prog = getProgress(p.steps)
+  const docProg = getDocProgress(p.documents)
   return `
     <div class="view active" id="view-self-declare">
       <div class="view-header">
-        <h1>Self Declare</h1>
-        <p>Perizinan berbasis pernyataan mandiri pelaku usaha</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <h1>Self Declare</h1>
+            <p>${c.businessName} &middot; ${PERMIT_INFO.selfDeclare.desc}</p>
+          </div>
+          <div style="text-align:right;font-size:0.85rem;">
+            ${getStatusBadge(p.status)}
+          </div>
+        </div>
       </div>
 
       <div class="card">
-        <h3>Progress</h3>
+        <div style="display:flex;justify-content:space-between;">
+          <h3>Progress Tahapan</h3>
+          <span style="font-size:0.9rem;font-weight:600;">${p.steps.filter(s=>s.done).length}/${p.steps.length}</span>
+        </div>
         <div class="progress-bar"><div class="fill" style="width:${prog}%"></div></div>
-        <div style="text-align:right;font-size:0.85rem;color:var(--text-secondary);">${prog}%</div>
       </div>
 
       <div class="card">
-        <h3>Persyaratan</h3>
-        <ul class="checklist" data-module="selfDeclare">
-          ${data.checklist.map(item => `
-            <li class="${item.checked ? 'checked' : ''}" data-id="${item.id}">
-              <input type="checkbox" ${item.checked ? 'checked' : ''}>
-              <span class="checklist-text">${item.text}</span>
+        <h3>NIB (Nomor Induk Berusaha)</h3>
+        <div style="display:flex;gap:0.5rem;">
+          <input type="text" id="sdNib" value="${p.nib}" placeholder="Masukkan NIB..." style="flex:1;">
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Langkah-langkah</h3>
+        <div class="timeline">
+          ${p.steps.map((step, i, arr) => {
+            const cls = getStepStatusClass(step, arr)
+            return `
+              <div class="timeline-item ${cls}">
+                <div class="step-label">${step.label}</div>
+                <div class="step-desc">${step.desc}</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.25rem;">
+                  <div class="step-status">
+                    ${cls === 'done' ? '&#10003; Selesai' : cls === 'active' ? '&#9679; Proses' : '&#9672; Tunggu'}
+                  </div>
+                  <div style="display:flex;gap:0.5rem;align-items:center;">
+                    <input type="checkbox" id="sd-step-${step.id}" ${step.done ? 'checked' : ''} data-step="${step.id}" data-module="selfDeclare" style="accent-color:var(--success);">
+                    <input type="date" id="sd-date-${step.id}" value="${step.date}" data-step="${step.id}" data-module="selfDeclare" style="width:140px;font-size:0.8rem;padding:0.2rem 0.4rem;">
+                  </div>
+                </div>
+                <textarea id="sd-note-${step.id}" rows="2" placeholder="Catatan..." data-step="${step.id}" data-module="selfDeclare" style="font-size:0.8rem;margin-top:0.25rem;">${step.notes}</textarea>
+              </div>
+            `
+          }).join('')}
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;">
+          <h3>Dokumen</h3>
+          <span style="font-size:0.9rem;font-weight:600;">${p.documents.filter(d=>d.collected).length}/${p.documents.length}</span>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width:${docProg}%"></div></div>
+        <ul class="checklist" style="margin-top:0.75rem;">
+          ${p.documents.map(doc => `
+            <li class="${doc.collected ? 'checked' : ''}" data-doc="${doc.id}" data-module="selfDeclare">
+              <input type="checkbox" ${doc.collected ? 'checked' : ''}>
+              <span class="checklist-text">${doc.name}</span>
+              <input type="text" value="${doc.notes}" placeholder="Ket." style="margin-left:auto;width:200px;font-size:0.8rem;padding:0.2rem 0.4rem;">
             </li>
           `).join('')}
         </ul>
       </div>
 
       <div class="card">
-        <h3>Simulasi Pengisian</h3>
-        <label>Omzet per bulan (Rp)</label>
-        <input type="text" id="sdOmzet" value="${data.simulation.omzet}" placeholder="Contoh: 50.000.000">
-        <label>Jumlah karyawan</label>
-        <input type="text" id="sdKaryawan" value="${data.simulation.karyawan}" placeholder="Contoh: 5">
-        <label>Modal usaha (Rp)</label>
-        <input type="text" id="sdModal" value="${data.simulation.modal}" placeholder="Contoh: 20.000.000">
-      </div>
-
-      <div class="card">
-        <h3>Catatan Kendala</h3>
-        <textarea id="sdNotes" rows="4">${data.notes}</textarea>
+        <h3>Catatan</h3>
+        <textarea id="sdNotes" rows="4">${p.notes}</textarea>
       </div>
     </div>`
 }
 
+/* ===== Reguler ===== */
+
 function renderReguler() {
-  const data = App.state.reguler
-  const prog = getProgress(data.checklist)
+  if (!client()) return renderNoClientPage('reguler')
+  const c = client()
+  const p = c.permits.reguler
+  const prog = getProgress(p.steps)
+  const docProg = getDocProgress(p.documents)
   return `
     <div class="view active" id="view-reguler">
       <div class="view-header">
-        <h1>Reguler (Sertifikasi Halal)</h1>
-        <p>Alur sertifikasi halal reguler melalui LPH dan MUI</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <h1>Reguler (Sertifikasi Halal)</h1>
+            <p>${c.businessName} &middot; ${PERMIT_INFO.reguler.desc}</p>
+          </div>
+          <div>${getStatusBadge(p.status)}</div>
+        </div>
       </div>
 
       <div class="card">
-        <h3>Progress Checklist</h3>
+        <div style="display:flex;justify-content:space-between;">
+          <h3>Progress Tahapan</h3>
+          <span style="font-size:0.9rem;font-weight:600;">${p.steps.filter(s=>s.done).length}/${p.steps.length}</span>
+        </div>
         <div class="progress-bar"><div class="fill" style="width:${prog}%"></div></div>
-        <div style="text-align:right;font-size:0.85rem;color:var(--text-secondary);">${prog}%</div>
       </div>
 
       <div class="card">
-        <h3>Checklist Reguler</h3>
-        <ul class="checklist" data-module="reguler">
-          ${data.checklist.map(item => `
-            <li class="${item.checked ? 'checked' : ''}" data-id="${item.id}">
-              <input type="checkbox" ${item.checked ? 'checked' : ''}>
-              <span class="checklist-text">${item.text}</span>
+        <h3>Alur Sertifikasi Halal</h3>
+        <div class="timeline">
+          ${p.steps.map((step, i, arr) => {
+            const cls = getStepStatusClass(step, arr)
+            return `
+              <div class="timeline-item ${cls}">
+                <div class="step-label">${step.label}</div>
+                <div class="step-desc">${step.desc}</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.25rem;">
+                  <div class="step-status">
+                    ${cls === 'done' ? '&#10003; Selesai' : cls === 'active' ? '&#9679; Proses' : '&#9672; Tunggu'}
+                  </div>
+                  <div style="display:flex;gap:0.5rem;align-items:center;">
+                    <input type="checkbox" id="rg-step-${step.id}" ${step.done ? 'checked' : ''} data-step="${step.id}" data-module="reguler">
+                    <input type="date" id="rg-date-${step.id}" value="${step.date}" data-step="${step.id}" data-module="reguler" style="width:140px;font-size:0.8rem;padding:0.2rem 0.4rem;">
+                  </div>
+                </div>
+                <textarea id="rg-note-${step.id}" rows="2" placeholder="Catatan..." data-step="${step.id}" data-module="reguler" style="font-size:0.8rem;margin-top:0.25rem;">${step.notes}</textarea>
+              </div>
+            `
+          }).join('')}
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;">
+          <h3>Dokumen</h3>
+          <span style="font-size:0.9rem;font-weight:600;">${p.documents.filter(d=>d.collected).length}/${p.documents.length}</span>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width:${docProg}%"></div></div>
+        <ul class="checklist" style="margin-top:0.75rem;">
+          ${p.documents.map(doc => `
+            <li class="${doc.collected ? 'checked' : ''}" data-doc="${doc.id}" data-module="reguler">
+              <input type="checkbox" ${doc.collected ? 'checked' : ''}>
+              <span class="checklist-text">${doc.name}</span>
+              <input type="text" value="${doc.notes}" placeholder="Ket." style="margin-left:auto;width:200px;font-size:0.8rem;padding:0.2rem 0.4rem;">
             </li>
           `).join('')}
         </ul>
-      </div>
-
-      <div class="card">
-        <h3>Alur LPH & Sertifikasi Halal</h3>
-        <div class="timeline">
-          ${data.alur.map(step => `
-            <div class="timeline-item ${step.status}">
-              <div class="step-label">${step.label}</div>
-              <div class="step-desc">${step.desc}</div>
-              <div class="step-status">${step.status === 'done' ? '&#10003; Selesai' : step.status === 'active' ? '&#9679; Proses' : '&#9672; Menunggu'}</div>
-            </div>
-          `).join('')}
-        </div>
       </div>
 
       <div class="card">
@@ -273,12 +472,18 @@ function renderReguler() {
           <table>
             <thead><tr><th>Tahap</th><th>Status</th><th>Tanggal</th><th>Catatan</th></tr></thead>
             <tbody>
-              ${data.monitoring.map(m => `
+              ${p.monitoring.map((m, i) => `
                 <tr>
                   <td>${m.tahap}</td>
-                  <td><span class="tag ${m.status === 'Selesai' ? 'tag-success' : 'tag-warning'}">${m.status}</span></td>
-                  <td>${m.tgl}</td>
-                  <td>${m.catatan}</td>
+                  <td>
+                    <select data-mon-idx="${i}" data-module="reguler" class="mon-status" style="width:100%;">
+                      <option value="Belum" ${m.status === 'Belum' ? 'selected' : ''}>Belum</option>
+                      <option value="Proses" ${m.status === 'Proses' ? 'selected' : ''}>Proses</option>
+                      <option value="Selesai" ${m.status === 'Selesai' ? 'selected' : ''}>Selesai</option>
+                    </select>
+                  </td>
+                  <td><input type="date" value="${m.tgl !== '-' ? m.tgl : ''}" data-mon-idx="${i}" data-module="reguler" class="mon-date" style="width:100%;font-size:0.8rem;"></td>
+                  <td><input type="text" value="${m.catatan}" data-mon-idx="${i}" data-module="reguler" class="mon-notes" style="width:100%;font-size:0.8rem;"></td>
                 </tr>
               `).join('')}
             </tbody>
@@ -288,122 +493,176 @@ function renderReguler() {
 
       <div class="card">
         <h3>Catatan</h3>
-        <textarea id="rgNotes" rows="4">${data.notes}</textarea>
+        <textarea id="rgNotes" rows="4">${p.notes}</textarea>
       </div>
     </div>`
 }
 
+/* ===== Fasilitasi ===== */
+
 function renderFasilitasi() {
-  const data = App.state.fasilitasi
-  const prog = getProgress(data.checklist)
+  if (!client()) return renderNoClientPage('fasilitasi')
+  const c = client()
+  const p = c.permits.fasilitasi
+  const prog = getProgress(p.steps)
   return `
     <div class="view active" id="view-fasilitasi">
       <div class="view-header">
-        <h1>Fasilitasi</h1>
-        <p>Program bantuan dan fasilitasi pemerintah untuk UMKM</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <h1>Fasilitasi</h1>
+            <p>${c.businessName} &middot; ${PERMIT_INFO.fasilitasi.desc}</p>
+          </div>
+          <div>${getStatusBadge(p.status)}</div>
+        </div>
       </div>
 
       <div class="card">
-        <h3>Progress Checklist</h3>
+        <div style="display:flex;justify-content:space-between;">
+          <h3>Progress Tahapan</h3>
+          <span style="font-size:0.9rem;font-weight:600;">${p.steps.filter(s=>s.done).length}/${p.steps.length}</span>
+        </div>
         <div class="progress-bar"><div class="fill" style="width:${prog}%"></div></div>
-        <div style="text-align:right;font-size:0.85rem;color:var(--text-secondary);">${prog}%</div>
       </div>
 
       <div class="card">
-        <h3>Checklist Fasilitasi</h3>
-        <ul class="checklist" data-module="fasilitasi">
-          ${data.checklist.map(item => `
-            <li class="${item.checked ? 'checked' : ''}" data-id="${item.id}">
-              <input type="checkbox" ${item.checked ? 'checked' : ''}>
-              <span class="checklist-text">${item.text}</span>
-            </li>
-          `).join('')}
-        </ul>
+        <h3>Langkah-langkah</h3>
+        <div class="timeline">
+          ${p.steps.map((step, i, arr) => {
+            const cls = getStepStatusClass(step, arr)
+            return `
+              <div class="timeline-item ${cls}">
+                <div class="step-label">${step.label}</div>
+                <div class="step-desc">${step.desc}</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.25rem;">
+                  <div class="step-status">${cls === 'done' ? '&#10003; Selesai' : cls === 'active' ? '&#9679; Proses' : '&#9672; Tunggu'}</div>
+                  <div style="display:flex;gap:0.5rem;align-items:center;">
+                    <input type="checkbox" id="fs-step-${step.id}" ${step.done ? 'checked' : ''} data-step="${step.id}" data-module="fasilitasi">
+                    <input type="date" id="fs-date-${step.id}" value="${step.date}" data-step="${step.id}" data-module="fasilitasi" style="width:140px;font-size:0.8rem;padding:0.2rem 0.4rem;">
+                  </div>
+                </div>
+                <textarea id="fs-note-${step.id}" rows="2" placeholder="Catatan..." data-step="${step.id}" data-module="fasilitasi" style="font-size:0.8rem;margin-top:0.25rem;">${step.notes}</textarea>
+              </div>
+            `
+          }).join('')}
+        </div>
       </div>
 
       <div class="card">
-        <h3>Daftar Program Bantuan</h3>
+        <h3>Tracking Program</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Program</th><th>Tgl Daftar</th><th>Status</th><th>Catatan</th></tr></thead>
+            <tbody>
+              ${p.registrations.map((reg, i) => `
+                <tr>
+                  <td>${reg.program}</td>
+                  <td><input type="date" value="${reg.tglDaftar}" data-reg="${i}" class="fs-reg-date" style="width:100%;font-size:0.8rem;"></td>
+                  <td>
+                    <select data-reg="${i}" class="fs-reg-status" style="width:100%;">
+                      <option value="Belum daftar" ${reg.status === 'Belum daftar' ? 'selected' : ''}>Belum daftar</option>
+                      <option value="Proses daftar" ${reg.status === 'Proses daftar' ? 'selected' : ''}>Proses daftar</option>
+                      <option value="Sudah daftar" ${reg.status === 'Sudah daftar' ? 'selected' : ''}>Sudah daftar</option>
+                      <option value="Diterima" ${reg.status === 'Diterima' ? 'selected' : ''}>Diterima</option>
+                      <option value="Ditolak" ${reg.status === 'Ditolak' ? 'selected' : ''}>Ditolak</option>
+                    </select>
+                  </td>
+                  <td><input type="text" value="${reg.notes}" data-reg="${i}" class="fs-reg-notes" style="width:100%;font-size:0.8rem;"></td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Program Bantuan Tersedia</h3>
         <div class="table-wrap">
           <table>
             <thead><tr><th>Program</th><th>Sumber</th><th>Status</th></tr></thead>
             <tbody>
-              ${data.programs.map(p => `
-                <tr>
-                  <td>${p.nama}</td>
-                  <td>${p.sumber}</td>
-                  <td><span class="tag ${p.status === 'Dibuka' ? 'tag-success' : p.status === 'Pendaftaran' ? 'tag-warning' : 'tag-danger'}">${p.status}</span></td>
-                </tr>
-              `).join('')}
+              <tr><td>BPUM (BLT UMKM)</td><td>Kemenkop UKM</td><td><span class="tag tag-warning">Cek berkala</span></td></tr>
+              <tr><td>KUR (Kredit Usaha Rakyat)</td><td>Perbankan</td><td><span class="tag tag-success">Tersedia</span></td></tr>
+              <tr><td>SEHATI (Sertifikasi Halal Gratis)</td><td>BPJPH</td><td><span class="tag tag-success">Tersedia</span></td></tr>
+              <tr><td>Pelatihan UMKM</td><td>Dinas Koperasi</td><td><span class="tag tag-warning">Pendaftaran</span></td></tr>
             </tbody>
           </table>
         </div>
-      </div>
-
-      <div class="card">
-        <h3>Tracking Pendaftaran</h3>
-        ${data.trackings.length === 0 ? '<p style="color:var(--text-secondary);">Belum ada pendaftaran.</p>' : `
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>Program</th><th>Tgl Daftar</th><th>Status</th></tr></thead>
-            <tbody>
-              ${data.trackings.map(t => `
-                <tr>
-                  <td>${t.program}</td>
-                  <td>${t.tglDaftar}</td>
-                  <td><span class="tag tag-warning">${t.status}</span></td>
-                </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        </div>`}
       </div>
 
       <div class="card">
         <h3>Catatan</h3>
-        <textarea id="fsNotes" rows="4">${data.notes}</textarea>
+        <textarea id="fsNotes" rows="4">${p.notes}</textarea>
       </div>
     </div>`
 }
 
+/* ===== P3H ===== */
+
 function renderP3H() {
-  const data = App.state.p3h
-  const prog = getProgress(data.checklist)
+  if (!client()) return renderNoClientPage('p3h')
+  const c = client()
+  const p = c.permits.p3h
+  const prog = getProgress(p.steps)
+  const docProg = getDocProgress(p.documents)
   return `
     <div class="view active" id="view-p3h">
       <div class="view-header">
-        <h1>Pendamping Halal (P3H)</h1>
-        <p>Pendamping Proses Produk Halal</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div>
+            <h1>Pendamping Halal (P3H)</h1>
+            <p>${c.businessName} &middot; ${PERMIT_INFO.p3h.desc}</p>
+          </div>
+          <div>${getStatusBadge(p.status)}</div>
+        </div>
       </div>
 
       <div class="card">
-        <h3>Progress Checklist</h3>
+        <div style="display:flex;justify-content:space-between;">
+          <h3>Progress Tahapan</h3>
+          <span style="font-size:0.9rem;font-weight:600;">${p.steps.filter(s=>s.done).length}/${p.steps.length}</span>
+        </div>
         <div class="progress-bar"><div class="fill" style="width:${prog}%"></div></div>
-        <div style="text-align:right;font-size:0.85rem;color:var(--text-secondary);">${prog}%</div>
       </div>
 
       <div class="card">
-        <h3>Persyaratan P3H</h3>
-        <ul class="checklist" data-module="p3h">
-          ${data.checklist.map(item => `
-            <li class="${item.checked ? 'checked' : ''}" data-id="${item.id}">
-              <input type="checkbox" ${item.checked ? 'checked' : ''}>
-              <span class="checklist-text">${item.text}</span>
+        <h3>Alur Sertifikasi P3H</h3>
+        <div class="timeline">
+          ${p.steps.map((step, i, arr) => {
+            const cls = getStepStatusClass(step, arr)
+            return `
+              <div class="timeline-item ${cls}">
+                <div class="step-label">${step.label}</div>
+                <div class="step-desc">${step.desc}</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-top:0.25rem;">
+                  <div class="step-status">${cls === 'done' ? '&#10003; Selesai' : cls === 'active' ? '&#9679; Proses' : '&#9672; Tunggu'}</div>
+                  <div style="display:flex;gap:0.5rem;align-items:center;">
+                    <input type="checkbox" id="p3-step-${step.id}" ${step.done ? 'checked' : ''} data-step="${step.id}" data-module="p3h">
+                    <input type="date" id="p3-date-${step.id}" value="${step.date}" data-step="${step.id}" data-module="p3h" style="width:140px;font-size:0.8rem;padding:0.2rem 0.4rem;">
+                  </div>
+                </div>
+                <textarea id="p3-note-${step.id}" rows="2" placeholder="Catatan..." data-step="${step.id}" data-module="p3h" style="font-size:0.8rem;margin-top:0.25rem;">${step.notes}</textarea>
+              </div>
+            `
+          }).join('')}
+        </div>
+      </div>
+
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;">
+          <h3>Dokumen</h3>
+          <span style="font-size:0.9rem;font-weight:600;">${p.documents.filter(d=>d.collected).length}/${p.documents.length}</span>
+        </div>
+        <div class="progress-bar"><div class="fill" style="width:${docProg}%"></div></div>
+        <ul class="checklist" style="margin-top:0.75rem;">
+          ${p.documents.map(doc => `
+            <li class="${doc.collected ? 'checked' : ''}" data-doc="${doc.id}" data-module="p3h">
+              <input type="checkbox" ${doc.collected ? 'checked' : ''}>
+              <span class="checklist-text">${doc.name}</span>
+              <input type="text" value="${doc.notes}" placeholder="Ket." style="margin-left:auto;width:200px;font-size:0.8rem;padding:0.2rem 0.4rem;">
             </li>
           `).join('')}
         </ul>
-      </div>
-
-      <div class="card">
-        <h3>Alur Sertifikasi Pendamping</h3>
-        <div class="timeline">
-          ${data.alur.map(step => `
-            <div class="timeline-item ${step.status}">
-              <div class="step-label">${step.label}</div>
-              <div class="step-desc">${step.desc}</div>
-              <div class="step-status">${step.status === 'done' ? '&#10003; Selesai' : step.status === 'active' ? '&#9679; Proses' : '&#9672; Menunggu'}</div>
-            </div>
-          `).join('')}
-        </div>
       </div>
 
       <div class="card">
@@ -412,9 +671,9 @@ function renderP3H() {
           <table>
             <thead><tr><th>Peraturan</th><th>Tentang</th></tr></thead>
             <tbody>
-              ${data.regulasi.map(r => `
-                <tr><td>${r.peraturan}</td><td>${r.tentang}</td></tr>
-              `).join('')}
+              <tr><td>UU No. 33/2014</td><td>Jaminan Produk Halal</td></tr>
+              <tr><td>PP No. 39/2021</td><td>Penyelenggaraan JPH</td></tr>
+              <tr><td>PMA No. 26/2019</td><td>Sertifikasi Halal</td></tr>
             </tbody>
           </table>
         </div>
@@ -422,7 +681,30 @@ function renderP3H() {
 
       <div class="card">
         <h3>Catatan</h3>
-        <textarea id="p3Notes" rows="4">${data.notes}</textarea>
+        <textarea id="p3Notes" rows="4">${p.notes}</textarea>
+      </div>
+    </div>`
+}
+
+function renderNoClientPage(returnPage) {
+  return `
+    <div class="view active">
+      <div class="view-header">
+        <h1>Pilih Klien</h1>
+        <p>Pilih klien terlebih dahulu untuk mengelola perizinan</p>
+      </div>
+      <div class="card" style="text-align:center;padding:2rem;">
+        ${App.state.clients.length > 0 ? `
+          <p style="color:var(--text-secondary);margin-bottom:1rem;">Pilih klien:</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.5rem;justify-content:center;">
+            ${App.state.clients.map(c => `
+              <button class="btn" onclick="selectClient('${c.id}');navigate('${returnPage}')">${c.businessName || c.name}</button>
+            `).join('')}
+          </div>
+        ` : '<p style="color:var(--text-secondary);">Belum ada klien. Tambahkan dari Dashboard.</p>'}
+        <div style="margin-top:1rem;">
+          <a href="#dashboard" class="btn btn-outline">&#8592; Kembali ke Dashboard</a>
+        </div>
       </div>
     </div>`
 }
@@ -435,6 +717,11 @@ const routes = {
   reguler: { title: 'Reguler', render: renderReguler },
   fasilitasi: { title: 'Fasilitasi', render: renderFasilitasi },
   p3h: { title: 'Pendamping Halal', render: renderP3H },
+}
+
+function selectClient(id) {
+  App.state.activeClientId = id
+  saveState()
 }
 
 function navigate(page) {
@@ -451,69 +738,167 @@ function navigate(page) {
   bindEvents(page)
 }
 
+/* ===== Event Binding ===== */
+
 function bindEvents(page) {
-  document.querySelectorAll('.checklist').forEach(ul => {
-    ul.querySelectorAll('li').forEach(li => {
-      const cb = li.querySelector('input[type="checkbox"]')
-      cb.addEventListener('change', () => {
-        const moduleName = ul.dataset.module
-        const id = li.dataset.id
-        const items = App.state[moduleName].checklist
-        const item = items.find(i => i.id === id)
-        if (item) {
-          item.checked = cb.checked
-          li.classList.toggle('checked', cb.checked)
-          if (moduleName === 'selfDeclare') {
-            document.querySelector('.stat-card:nth-child(2) .stat-number').textContent = getProgress(items) + '%'
-          }
-          saveState()
-        }
-      })
-    })
+  const c = client()
+
+  document.getElementById('clientSelect')?.addEventListener('change', e => {
+    selectClient(e.target.value)
+    navigate(App.state.page)
   })
 
-  const sdOmzet = document.getElementById('sdOmzet')
-  if (sdOmzet) sdOmzet.addEventListener('input', e => { App.state.selfDeclare.simulation.omzet = e.target.value; saveState() })
-  const sdKaryawan = document.getElementById('sdKaryawan')
-  if (sdKaryawan) sdKaryawan.addEventListener('input', e => { App.state.selfDeclare.simulation.karyawan = e.target.value; saveState() })
-  const sdModal = document.getElementById('sdModal')
-  if (sdModal) sdModal.addEventListener('input', e => { App.state.selfDeclare.simulation.modal = e.target.value; saveState() })
+  document.getElementById('addClientBtn')?.addEventListener('click', () => {
+    const id = 'c' + Date.now()
+    const newClient = {
+      id,
+      name: 'Klien Baru',
+      nik: '',
+      birthPlace: '',
+      birthDate: '',
+      address: '',
+      rtRw: '',
+      postalCode: '',
+      phone: '',
+      businessName: 'Usaha Baru',
+      businessType: '',
+      permits: JSON.parse(JSON.stringify(App.state.clients[0]?.permits || {
+        selfDeclare: { status: 'not_started', nib: '', steps: [], documents: [], notes: '' },
+        reguler: { status: 'not_started', nib: '', steps: [], documents: [], monitoring: [], notes: '' },
+        fasilitasi: { status: 'not_started', steps: [], registrations: [], notes: '' },
+        p3h: { status: 'not_started', steps: [], documents: [], notes: '' },
+      })),
+    }
+    App.state.clients.push(newClient)
+    selectClient(id)
+    saveState()
+    navigate('dashboard')
+  })
 
-  const sdNotes = document.getElementById('sdNotes')
-  if (sdNotes) sdNotes.addEventListener('input', e => { App.state.selfDeclare.notes = e.target.value; saveState() })
-  const rgNotes = document.getElementById('rgNotes')
-  if (rgNotes) rgNotes.addEventListener('input', e => { App.state.reguler.notes = e.target.value; saveState() })
-  const fsNotes = document.getElementById('fsNotes')
-  if (fsNotes) fsNotes.addEventListener('input', e => { App.state.fasilitasi.notes = e.target.value; saveState() })
-  const p3Notes = document.getElementById('p3Notes')
-  if (p3Notes) p3Notes.addEventListener('input', e => { App.state.p3h.notes = e.target.value; saveState() })
+  document.getElementById('editClientBtn')?.addEventListener('click', () => {
+    if (!c) return
+    const name = prompt('Nama:', c.name)
+    if (name && name !== c.name) { c.name = name; saveState(); navigate('dashboard') }
+  })
+
+  if (c) {
+    bindPermitSteps(c, 'selfDeclare', 'sd')
+    bindPermitSteps(c, 'reguler', 'rg')
+    bindPermitSteps(c, 'fasilitasi', 'fs')
+    bindPermitSteps(c, 'p3h', 'p3')
+
+    bindChecklist(c, 'selfDeclare')
+    bindChecklist(c, 'reguler')
+    bindChecklist(c, 'p3h')
+
+    document.getElementById('sdNib')?.addEventListener('change', e => {
+      c.permits.selfDeclare.nib = e.target.value
+      saveState()
+    })
+
+    document.querySelectorAll('.mon-status')?.forEach(sel => {
+      sel.addEventListener('change', e => {
+        const i = parseInt(e.target.dataset.monIdx)
+        c.permits.reguler.monitoring[i].status = e.target.value
+        saveState()
+      })
+    })
+    document.querySelectorAll('.mon-date')?.forEach(inp => {
+      inp.addEventListener('change', e => {
+        const i = parseInt(e.target.dataset.monIdx)
+        c.permits.reguler.monitoring[i].tgl = e.target.value || '-'
+        saveState()
+      })
+    })
+    document.querySelectorAll('.mon-notes')?.forEach(inp => {
+      inp.addEventListener('input', e => {
+        const i = parseInt(e.target.dataset.monIdx)
+        c.permits.reguler.monitoring[i].catatan = e.target.value
+        saveState()
+      })
+    })
+
+    document.querySelectorAll('.fs-reg-status')?.forEach(sel => {
+      sel.addEventListener('change', e => {
+        const i = parseInt(e.target.dataset.reg)
+        c.permits.fasilitasi.registrations[i].status = e.target.value
+        saveState()
+      })
+    })
+    document.querySelectorAll('.fs-reg-date')?.forEach(inp => {
+      inp.addEventListener('change', e => {
+        const i = parseInt(e.target.dataset.reg)
+        c.permits.fasilitasi.registrations[i].tglDaftar = e.target.value
+        saveState()
+      })
+    })
+    document.querySelectorAll('.fs-reg-notes')?.forEach(inp => {
+      inp.addEventListener('input', e => {
+        const i = parseInt(e.target.dataset.reg)
+        c.permits.fasilitasi.registrations[i].notes = e.target.value
+        saveState()
+      })
+    })
+
+    const sdNotes = document.getElementById('sdNotes')
+    if (sdNotes) sdNotes.addEventListener('input', e => { c.permits.selfDeclare.notes = e.target.value; saveState() })
+    const rgNotes = document.getElementById('rgNotes')
+    if (rgNotes) rgNotes.addEventListener('input', e => { c.permits.reguler.notes = e.target.value; saveState() })
+    const fsNotes = document.getElementById('fsNotes')
+    if (fsNotes) fsNotes.addEventListener('input', e => { c.permits.fasilitasi.notes = e.target.value; saveState() })
+    const p3Notes = document.getElementById('p3Notes')
+    if (p3Notes) p3Notes.addEventListener('input', e => { c.permits.p3h.notes = e.target.value; saveState() })
+  }
+}
+
+function bindPermitSteps(c, moduleKey, prefix) {
+  const p = c.permits[moduleKey]
+  p.steps.forEach((step) => {
+    const cb = document.getElementById(`${prefix}-step-${step.id}`)
+    const dateInput = document.getElementById(`${prefix}-date-${step.id}`)
+    const noteInput = document.getElementById(`${prefix}-note-${step.id}`)
+    if (cb) cb.addEventListener('change', e => {
+      step.done = e.target.checked
+      const allDone = p.steps.every(s => s.done)
+      const anyDone = p.steps.some(s => s.done)
+      p.status = allDone ? 'completed' : anyDone ? 'in_progress' : 'not_started'
+      saveState()
+    })
+    if (dateInput) dateInput.addEventListener('change', e => { step.date = e.target.value; saveState() })
+    if (noteInput) noteInput.addEventListener('input', e => { step.notes = e.target.value; saveState() })
+  })
+}
+
+function bindChecklist(c, moduleKey) {
+  const p = c.permits[moduleKey]
+  if (!p.documents) return
+  const ul = document.querySelector(`.checklist[data-module="${moduleKey}"]`)
+  if (!ul) return
+  ul.querySelectorAll('li').forEach(li => {
+    const cb = li.querySelector('input[type="checkbox"]')
+    const notesInput = li.querySelector('input[type="text"]')
+    const docId = li.dataset.doc
+    const doc = p.documents.find(d => d.id === docId)
+    if (cb) cb.addEventListener('change', e => {
+      if (doc) { doc.collected = e.target.checked; li.classList.toggle('checked', e.target.checked); saveState() }
+    })
+    if (notesInput) notesInput.addEventListener('input', e => {
+      if (doc) { doc.notes = e.target.value; saveState() }
+    })
+  })
 }
 
 /* ===== Search ===== */
 
 function buildSearchIndex() {
   const idx = []
-  const s = App.state
-  idx.push({ title: 'Dashboard', text: 'Progress pengajuan, checklist dokumen, deadline pengurusan', page: 'dashboard' })
-  idx.push({ title: 'Self Declare', text: 'Perizinan mandiri, KTP, KK, NPWP, domisili, pas foto, simulasi omzet', page: 'self-declare' })
-  idx.push({ title: 'Reguler Sertifikasi Halal', text: 'LPH, audit halal, fatwa MUI, SIHALAL, monitoring sertifikat halal', page: 'reguler' })
-  idx.push({ title: 'Fasilitasi UMKM', text: 'BPUM, KUR, SEHATI, bantuan pemerintah, pelatihan UMKM, tracking pendaftaran', page: 'fasilitasi' })
-  idx.push({ title: 'Pendamping Halal P3H', text: 'Bimtek, ujian kompetensi, BPJPH, SK pendamping, regulasi JPH', page: 'p3h' })
-
-  s.selfDeclare.checklist.forEach(i => {
-    idx.push({ title: 'Self Declare: ' + i.text, text: 'Checklist persyaratan', page: 'self-declare' })
-  })
-  s.reguler.checklist.forEach(i => {
-    idx.push({ title: 'Reguler: ' + i.text, text: 'Checklist reguler', page: 'reguler' })
-  })
-  s.fasilitasi.programs.forEach(i => {
-    idx.push({ title: 'Fasilitasi: ' + i.nama, text: i.sumber + ' - ' + i.status, page: 'fasilitasi' })
-  })
-  s.p3h.checklist.forEach(i => {
-    idx.push({ title: 'P3H: ' + i.text, text: 'Checklist pendamping halal', page: 'p3h' })
-  })
-  s.p3h.regulasi.forEach(i => {
-    idx.push({ title: 'Regulasi: ' + i.peraturan, text: i.tentang, page: 'p3h' })
+  idx.push({ title: 'Dashboard', text: 'Kelola klien, progress perizinan UMKM', page: 'dashboard' })
+  idx.push({ title: 'Self Declare', text: 'NIB, pernyataan mandiri, OSS, KTP, KK, NPWP', page: 'self-declare' })
+  idx.push({ title: 'Reguler Sertifikasi Halal', text: 'SIHALAL, LPH, audit halal, fatwa MUI, sertifikat halal', page: 'reguler' })
+  idx.push({ title: 'Fasilitasi', text: 'BPUM, KUR, SEHATI, program pemerintah, bantuan UMKM', page: 'fasilitasi' })
+  idx.push({ title: 'Pendamping Halal P3H', text: 'Bimtek, ujian kompetensi, BPJPH, SK pendamping', page: 'p3h' })
+  App.state.clients.forEach(c => {
+    idx.push({ title: 'Klien: ' + c.name, text: c.businessName + ' - ' + c.nik, page: 'dashboard' })
   })
   return idx
 }
@@ -524,9 +909,7 @@ function performSearch(query) {
   const results = buildSearchIndex().filter(item =>
     item.title.toLowerCase().includes(q) || item.text.toLowerCase().includes(q)
   )
-  if (results.length === 0) {
-    return '<p style="color:var(--text-secondary);padding:1rem;">Tidak ditemukan hasil.</p>'
-  }
+  if (results.length === 0) return '<p style="color:var(--text-secondary);padding:1rem;">Tidak ditemukan hasil.</p>'
   return results.map(r => `
     <div class="search-result" data-page="${r.page}">
       <h4>${highlight(r.title, query)}</h4>
@@ -553,11 +936,9 @@ function applyTheme() {
   document.getElementById('themeToggle').innerHTML = App.state.theme === 'light' ? '&#9790;' : '&#9728;'
 }
 
-/* ===== Export PDF ===== */
+/* ===== Export ===== */
 
-function exportPDF() {
-  window.print()
-}
+function exportPDF() { window.print() }
 
 /* ===== Init ===== */
 
@@ -604,19 +985,13 @@ function init() {
   function hashChange() {
     const hash = window.location.hash.replace('#', '') || 'dashboard'
     searchInput.value = ''
-    if (routes[hash]) {
-      navigate(hash)
-    }
+    if (routes[hash]) navigate(hash)
   }
 
   window.addEventListener('hashchange', hashChange)
 
   const initialPage = window.location.hash.replace('#', '') || 'dashboard'
-  if (routes[initialPage]) {
-    navigate(initialPage)
-  } else {
-    navigate('dashboard')
-  }
+  navigate(routes[initialPage] ? initialPage : 'dashboard')
 }
 
 document.addEventListener('DOMContentLoaded', init)
