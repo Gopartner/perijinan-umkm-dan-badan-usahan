@@ -4,101 +4,7 @@ const App = {
     page: 'dashboard',
     query: '',
     activeClientId: null,
-    clients: [
-      {
-        id: 'c1',
-        name: 'Diah Litasari',
-        nik: '3578066806740004',
-        birthPlace: 'Surabaya',
-        birthDate: '28-06-1974',
-        address: 'Jl. Pakis Wetan VII No. 14, Surabaya',
-        rtRw: '0014/003',
-        postalCode: '60256',
-        phone: '081343194567',
-        businessName: 'Litasari Catering',
-        businessType: 'Catering, Makanan',
-        permits: {
-          selfDeclare: {
-            status: 'not_started',
-            nib: '',
-            steps: [
-              { id: 'sd-s1', label: 'Siapkan Dokumen', desc: 'KTP, KK, NPWP, domisili', done: false, date: '', notes: '' },
-              { id: 'sd-s2', label: 'Daftar Akun OSS', desc: 'Buat akun di oss.go.id', done: false, date: '', notes: '' },
-              { id: 'sd-s3', label: 'Isi Data Diri & Usaha', desc: 'Lengkapi profil di OSS', done: false, date: '', notes: '' },
-              { id: 'sd-s4', label: 'Submit Pernyataan Mandiri', desc: 'Klik pernyataan mandiri di OSS', done: false, date: '', notes: '' },
-              { id: 'sd-s5', label: 'Cetak NIB', desc: 'Unduh dan cetak NIB', done: false, date: '', notes: '' },
-            ],
-            documents: [
-              { id: 'sd-d1', name: 'KTP', collected: true, notes: '' },
-              { id: 'sd-d2', name: 'Kartu Keluarga', collected: true, notes: '' },
-              { id: 'sd-d3', name: 'NPWP', collected: false, notes: '' },
-              { id: 'sd-d4', name: 'Pas Foto 3x4', collected: false, notes: '' },
-              { id: 'sd-d5', name: 'Surat Domisili Usaha', collected: false, notes: '' },
-            ],
-            notes: '',
-          },
-          reguler: {
-            status: 'not_started',
-            nib: '',
-            steps: [
-              { id: 'rg-s1', label: 'Daftar Akun SIHALAL', desc: 'Buat akun di ptsp.halal.go.id', done: false, date: '', notes: '' },
-              { id: 'rg-s2', label: 'Upload Dokumen', desc: 'Scan KTP, NPWP, NIB, dll', done: false, date: '', notes: '' },
-              { id: 'rg-s3', label: 'Pilih LPH', desc: 'Pilih LPH terafiliasi MUI', done: false, date: '', notes: '' },
-              { id: 'rg-s4', label: 'Jadwal Audit', desc: 'Tunggu jadwal dari LPH', done: false, date: '', notes: '' },
-              { id: 'rg-s5', label: 'Audit LPH', desc: 'Audit langsung ke tempat usaha', done: false, date: '', notes: '' },
-              { id: 'rg-s6', label: 'Sidang Fatwa MUI', desc: 'Komisi Fatwa MUI menetapkan', done: false, date: '', notes: '' },
-              { id: 'rg-s7', label: 'Terbit Sertifikat Halal', desc: 'Unduh sertifikat dari SIHALAL', done: false, date: '', notes: '' },
-            ],
-            documents: [
-              { id: 'rg-d1', name: 'Fotokopi KTP', collected: false, notes: '' },
-              { id: 'rg-d2', name: 'Fotokopi NPWP', collected: false, notes: '' },
-              { id: 'rg-d3', name: 'NIB', collected: false, notes: '' },
-              { id: 'rg-d4', name: 'Daftar Produk & Bahan', collected: false, notes: '' },
-              { id: 'rg-d5', name: 'Surat Pernyataan', collected: false, notes: '' },
-            ],
-            monitoring: [
-              { tahap: 'Pendaftaran', status: 'Belum', tgl: '-', catatan: '' },
-              { tahap: 'Verifikasi', status: 'Belum', tgl: '-', catatan: '' },
-              { tahap: 'Audit', status: 'Belum', tgl: '-', catatan: '' },
-              { tahap: 'Fatwa', status: 'Belum', tgl: '-', catatan: '' },
-            ],
-            notes: '',
-          },
-          fasilitasi: {
-            status: 'not_started',
-            steps: [
-              { id: 'fs-s1', label: 'Cari Program', desc: 'Cek program di OSS/disnaker', done: false, date: '', notes: '' },
-              { id: 'fs-s2', label: 'Siapkan Berkas', desc: 'Siapkan syarat administrasi', done: false, date: '', notes: '' },
-              { id: 'fs-s3', label: 'Daftar Program', desc: 'Submit pendaftaran online/offline', done: false, date: '', notes: '' },
-              { id: 'fs-s4', label: 'Follow Up', desc: 'Pantau status pendaftaran', done: false, date: '', notes: '' },
-            ],
-            registrations: [
-              { id: 'fs-r1', program: 'SEHATI (Sertifikasi Halal Gratis)', tglDaftar: '', status: 'Belum daftar', notes: '' },
-              { id: 'fs-r2', program: 'BPUM (BLT UMKM)', tglDaftar: '', status: 'Belum daftar', notes: '' },
-              { id: 'fs-r3', program: 'KUR (Kredit Usaha Rakyat)', tglDaftar: '', status: 'Belum daftar', notes: '' },
-            ],
-            notes: '',
-          },
-          p3h: {
-            status: 'not_started',
-            steps: [
-              { id: 'p3-s1', label: 'Daftar Bimtek', desc: 'Cari info bimtek P3H terdekat', done: false, date: '', notes: '' },
-              { id: 'p3-s2', label: 'Ikuti Bimtek', desc: 'Pelatihan pendamping halal', done: false, date: '', notes: '' },
-              { id: 'p3-s3', label: 'Ujian Kompetensi', desc: 'Ikuti ujian sertifikasi P3H', done: false, date: '', notes: '' },
-              { id: 'p3-s4', label: 'Terbit SK P3H', desc: 'SK dari BPJPH', done: false, date: '', notes: '' },
-              { id: 'p3-s5', label: 'Mulai Pendampingan', desc: 'Pendampingan ke pelaku UMKM', done: false, date: '', notes: '' },
-            ],
-            documents: [
-              { id: 'p3-d1', name: 'Ijazah Pendidikan', collected: false, notes: '' },
-              { id: 'p3-d2', name: 'KTP', collected: false, notes: '' },
-              { id: 'p3-d3', name: 'Pas Foto', collected: false, notes: '' },
-              { id: 'p3-d4', name: 'CV', collected: false, notes: '' },
-            ],
-            notes: '',
-          },
-        },
-      },
-    ],
+    clients: [],
   },
 }
 
@@ -750,6 +656,84 @@ function bindEvents(page) {
 
   document.getElementById('addClientBtn')?.addEventListener('click', () => {
     const id = 'c' + Date.now()
+    const defaultPermits = {
+      selfDeclare: {
+        status: 'not_started', nib: '',
+        steps: [
+          { id: 'sd-s1', label: 'Siapkan Dokumen', desc: 'KTP, KK, NPWP, domisili', done: false, date: '', notes: '' },
+          { id: 'sd-s2', label: 'Daftar Akun OSS', desc: 'Buat akun di oss.go.id', done: false, date: '', notes: '' },
+          { id: 'sd-s3', label: 'Isi Data Diri & Usaha', desc: 'Lengkapi profil di OSS', done: false, date: '', notes: '' },
+          { id: 'sd-s4', label: 'Submit Pernyataan Mandiri', desc: 'Klik pernyataan mandiri di OSS', done: false, date: '', notes: '' },
+          { id: 'sd-s5', label: 'Cetak NIB', desc: 'Unduh dan cetak NIB', done: false, date: '', notes: '' },
+        ],
+        documents: [
+          { id: 'sd-d1', name: 'KTP', collected: false, notes: '' },
+          { id: 'sd-d2', name: 'Kartu Keluarga', collected: false, notes: '' },
+          { id: 'sd-d3', name: 'NPWP', collected: false, notes: '' },
+          { id: 'sd-d4', name: 'Pas Foto 3x4', collected: false, notes: '' },
+          { id: 'sd-d5', name: 'Surat Domisili Usaha', collected: false, notes: '' },
+        ],
+        notes: '',
+      },
+      reguler: {
+        status: 'not_started', nib: '',
+        steps: [
+          { id: 'rg-s1', label: 'Daftar Akun SIHALAL', desc: 'Buat akun di ptsp.halal.go.id', done: false, date: '', notes: '' },
+          { id: 'rg-s2', label: 'Upload Dokumen', desc: 'Scan KTP, NPWP, NIB, dll', done: false, date: '', notes: '' },
+          { id: 'rg-s3', label: 'Pilih LPH', desc: 'Pilih LPH terafiliasi MUI', done: false, date: '', notes: '' },
+          { id: 'rg-s4', label: 'Jadwal Audit', desc: 'Tunggu jadwal dari LPH', done: false, date: '', notes: '' },
+          { id: 'rg-s5', label: 'Audit LPH', desc: 'Audit langsung ke tempat usaha', done: false, date: '', notes: '' },
+          { id: 'rg-s6', label: 'Sidang Fatwa MUI', desc: 'Komisi Fatwa MUI menetapkan', done: false, date: '', notes: '' },
+          { id: 'rg-s7', label: 'Terbit Sertifikat Halal', desc: 'Unduh sertifikat dari SIHALAL', done: false, date: '', notes: '' },
+        ],
+        documents: [
+          { id: 'rg-d1', name: 'Fotokopi KTP', collected: false, notes: '' },
+          { id: 'rg-d2', name: 'Fotokopi NPWP', collected: false, notes: '' },
+          { id: 'rg-d3', name: 'NIB', collected: false, notes: '' },
+          { id: 'rg-d4', name: 'Daftar Produk & Bahan', collected: false, notes: '' },
+          { id: 'rg-d5', name: 'Surat Pernyataan', collected: false, notes: '' },
+        ],
+        monitoring: [
+          { tahap: 'Pendaftaran', status: 'Belum', tgl: '-', catatan: '' },
+          { tahap: 'Verifikasi', status: 'Belum', tgl: '-', catatan: '' },
+          { tahap: 'Audit', status: 'Belum', tgl: '-', catatan: '' },
+          { tahap: 'Fatwa', status: 'Belum', tgl: '-', catatan: '' },
+        ],
+        notes: '',
+      },
+      fasilitasi: {
+        status: 'not_started',
+        steps: [
+          { id: 'fs-s1', label: 'Cari Program', desc: 'Cek program di OSS/disnaker', done: false, date: '', notes: '' },
+          { id: 'fs-s2', label: 'Siapkan Berkas', desc: 'Siapkan syarat administrasi', done: false, date: '', notes: '' },
+          { id: 'fs-s3', label: 'Daftar Program', desc: 'Submit pendaftaran online/offline', done: false, date: '', notes: '' },
+          { id: 'fs-s4', label: 'Follow Up', desc: 'Pantau status pendaftaran', done: false, date: '', notes: '' },
+        ],
+        registrations: [
+          { id: 'fs-r1', program: 'SEHATI (Sertifikasi Halal Gratis)', tglDaftar: '', status: 'Belum daftar', notes: '' },
+          { id: 'fs-r2', program: 'BPUM (BLT UMKM)', tglDaftar: '', status: 'Belum daftar', notes: '' },
+          { id: 'fs-r3', program: 'KUR (Kredit Usaha Rakyat)', tglDaftar: '', status: 'Belum daftar', notes: '' },
+        ],
+        notes: '',
+      },
+      p3h: {
+        status: 'not_started',
+        steps: [
+          { id: 'p3-s1', label: 'Daftar Bimtek', desc: 'Cari info bimtek P3H terdekat', done: false, date: '', notes: '' },
+          { id: 'p3-s2', label: 'Ikuti Bimtek', desc: 'Pelatihan pendamping halal', done: false, date: '', notes: '' },
+          { id: 'p3-s3', label: 'Ujian Kompetensi', desc: 'Ikuti ujian sertifikasi P3H', done: false, date: '', notes: '' },
+          { id: 'p3-s4', label: 'Terbit SK P3H', desc: 'SK dari BPJPH', done: false, date: '', notes: '' },
+          { id: 'p3-s5', label: 'Mulai Pendampingan', desc: 'Pendampingan ke pelaku UMKM', done: false, date: '', notes: '' },
+        ],
+        documents: [
+          { id: 'p3-d1', name: 'Ijazah Pendidikan', collected: false, notes: '' },
+          { id: 'p3-d2', name: 'KTP', collected: false, notes: '' },
+          { id: 'p3-d3', name: 'Pas Foto', collected: false, notes: '' },
+          { id: 'p3-d4', name: 'CV', collected: false, notes: '' },
+        ],
+        notes: '',
+      },
+    }
     const newClient = {
       id,
       name: 'Klien Baru',
@@ -762,12 +746,7 @@ function bindEvents(page) {
       phone: '',
       businessName: 'Usaha Baru',
       businessType: '',
-      permits: JSON.parse(JSON.stringify(App.state.clients[0]?.permits || {
-        selfDeclare: { status: 'not_started', nib: '', steps: [], documents: [], notes: '' },
-        reguler: { status: 'not_started', nib: '', steps: [], documents: [], monitoring: [], notes: '' },
-        fasilitasi: { status: 'not_started', steps: [], registrations: [], notes: '' },
-        p3h: { status: 'not_started', steps: [], documents: [], notes: '' },
-      })),
+      permits: JSON.parse(JSON.stringify(defaultPermits)),
     }
     App.state.clients.push(newClient)
     selectClient(id)
