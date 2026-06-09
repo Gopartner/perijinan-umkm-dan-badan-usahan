@@ -1048,6 +1048,354 @@ function renderNoClientPage(returnPage) {
     </div>`
 }
 
+/* ===== OSS PDF Generator ===== */
+
+const OSS_TEMPLATES_KEY = 'ossTemplates'
+
+function getOssTemplates() {
+  try { return JSON.parse(localStorage.getItem(OSS_TEMPLATES_KEY)) || [] } catch (e) { return [] }
+}
+
+function saveOssTemplates(templates) {
+  try { localStorage.setItem(OSS_TEMPLATES_KEY, JSON.stringify(templates)) } catch (e) {}
+}
+
+function renderOssPdf() {
+  const templates = getOssTemplates()
+  return `
+    <div class="view active" id="view-oss-pdf">
+      <div class="view-header">
+        <h1>OSS PDF Generator</h1>
+        <p>Hasilkan dokumen PDF siap upload ke OSS</p>
+      </div>
+
+      <div class="card">
+        <h3>Template Cepat</h3>
+        <div class="oss-template-select">
+          <select id="ossTemplateSelect">
+            <option value="">-- Pilih template --</option>
+            ${templates.map((t, i) => `<option value="${i}">${t.nama}</option>`).join('')}
+            <option value="__save__">+ Simpan sebagai template baru</option>
+          </select>
+          ${templates.length > 0 ? '<button id="ossDeleteTemplate" class="btn btn-sm btn-outline" style="color:var(--danger);">Hapus</button>' : ''}
+        </div>
+      </div>
+
+      <div class="card oss-form">
+        <h3>Data Lokasi</h3>
+        <div class="form-group">
+          <label for="ossAlamat">Alamat Lengkap</label>
+          <textarea id="ossAlamat" rows="2" placeholder="Jl. Pakis Wetan VII No.14 Surabaya"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="ossLuas">Luas Keseluruhan Lahan</label>
+          <input type="text" id="ossLuas" placeholder="10 M&#178;">
+        </div>
+        <div class="form-group">
+          <label for="ossKoordinat">Titik Koordinat</label>
+          <input type="text" id="ossKoordinat" placeholder="-7.28991309172257,112.72939860820772">
+        </div>
+      </div>
+
+      <div class="card oss-form">
+        <h3>Foto Tampak Depan</h3>
+        <div class="oss-upload-area" id="ossUploadArea">
+          <input type="file" id="ossFotoInput" accept=".jpg,.jpeg,.png,.webp">
+          <p>&#128247; Klik untuk upload foto tampak depan</p>
+          <p style="font-size:0.8rem;color:var(--text-secondary);">Format: JPG, JPEG, PNG, WEBP</p>
+        </div>
+        <div id="ossFotoPreview" style="display:none;margin-top:0.75rem;">
+          <img id="ossFotoImg" class="oss-photo-preview" alt="Preview">
+          <p style="font-size:0.8rem;color:var(--text-secondary);margin-top:0.25rem;">File: <span id="ossFotoName"></span> &middot; <span id="ossFotoSize"></span></p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Preview</h3>
+        <div class="oss-preview">
+          <div class="oss-preview-box">
+            <h4>Dokumen Lokasi Administratif</h4>
+            <p><strong>Alamat:</strong> <span id="previewAlamat">-</span></p>
+            <p><strong>Luas Lahan:</strong> <span id="previewLuas">-</span></p>
+            <p><strong>Koordinat:</strong> <span id="previewKoordinat">-</span></p>
+          </div>
+          <div class="oss-preview-box">
+            <h4>Dokumen Foto Tampak Depan</h4>
+            <p id="previewFotoStatus">Belum ada foto</p>
+          </div>
+        </div>
+        <div id="ossError" class="oss-error" style="display:none;"></div>
+        <button id="ossGenerateBtn" class="btn" style="width:100%;padding:0.75rem;font-size:1rem;">&#9889; Generate PDF</button>
+        <div id="ossDownloadArea" class="oss-downloads" style="display:none;"></div>
+      </div>
+    </div>`
+}
+
+function ossLoadTemplate() {
+  const sel = document.getElementById('ossTemplateSelect')
+  const idx = parseInt(sel.value)
+  if (isNaN(idx)) return
+  const templates = getOssTemplates()
+  const t = templates[idx]
+  if (!t) return
+  document.getElementById('ossAlamat').value = t.alamat || ''
+  document.getElementById('ossLuas').value = t.luas || ''
+  document.getElementById('ossKoordinat').value = t.koordinat || ''
+  ossUpdatePreview()
+}
+
+async function ossSaveTemplate() {
+  const alamat = document.getElementById('ossAlamat').value.trim()
+  if (!alamat) { alert('Isi alamat terlebih dahulu.'); return }
+  const nama = prompt('Nama template:', alamat.split(',')[0].trim() || 'Template')
+  if (!nama) return
+  const templates = getOssTemplates()
+  templates.push({
+    nama,
+    alamat: document.getElementById('ossAlamat').value.trim(),
+    luas: document.getElementById('ossLuas').value.trim(),
+    koordinat: document.getElementById('ossKoordinat').value.trim(),
+  })
+  saveOssTemplates(templates)
+  navigate('oss-pdf')
+}
+
+function ossDeleteTemplate() {
+  if (!confirm('Hapus template ini?')) return
+  const sel = document.getElementById('ossTemplateSelect')
+  const idx = parseInt(sel.value)
+  if (isNaN(idx)) return
+  const templates = getOssTemplates()
+  templates.splice(idx, 1)
+  saveOssTemplates(templates)
+  navigate('oss-pdf')
+}
+
+function ossUpdatePreview() {
+  const alamat = document.getElementById('ossAlamat').value.trim()
+  const luas = document.getElementById('ossLuas').value.trim()
+  const koordinat = document.getElementById('ossKoordinat').value.trim()
+  document.getElementById('previewAlamat').textContent = alamat || '-'
+  document.getElementById('previewLuas').textContent = luas || '-'
+  document.getElementById('previewKoordinat').textContent = koordinat || '-'
+}
+
+async function ossGeneratePdf() {
+  const errorEl = document.getElementById('ossError')
+  errorEl.style.display = 'none'
+
+  const alamat = document.getElementById('ossAlamat').value.trim()
+  const luas = document.getElementById('ossLuas').value.trim()
+  const koordinat = document.getElementById('ossKoordinat').value.trim()
+  const fotoInput = document.getElementById('ossFotoInput')
+  const fotoFile = fotoInput.files[0]
+
+  if (!alamat || !luas || !koordinat) {
+    errorEl.textContent = 'Harap lengkapi data lokasi (alamat, luas lahan, koordinat).'
+    errorEl.style.display = 'block'
+    return
+  }
+  if (!fotoFile) {
+    errorEl.textContent = 'Harap upload foto tampak depan.'
+    errorEl.style.display = 'block'
+    return
+  }
+
+  const btn = document.getElementById('ossGenerateBtn')
+  btn.disabled = true
+  btn.textContent = 'Memproses...'
+
+  try {
+    const { jsPDF } = window.jspdf
+
+    // === Dokumen Lokasi Administratif ===
+    const pdf1 = new jsPDF('p', 'mm', 'a4')
+    const pageW = pdf1.internal.pageSize.getWidth()
+    let y = 30
+
+    pdf1.setFont('helvetica', 'bold')
+    pdf1.setFontSize(16)
+    pdf1.text('DOKUMEN LOKASI ADMINISTRATIF', pageW / 2, y, { align: 'center' })
+    y += 20
+
+    pdf1.setFont('helvetica', 'normal')
+    pdf1.setFontSize(12)
+    pdf1.text('Alamat Lengkap', 20, y)
+    y += 8
+    pdf1.setFont('helvetica', 'bold')
+    pdf1.setFontSize(11)
+    const lines = pdf1.splitTextToSize(alamat, pageW - 40)
+    pdf1.text(lines, 20, y)
+    y += lines.length * 6 + 10
+
+    pdf1.setFont('helvetica', 'normal')
+    pdf1.setFontSize(12)
+    pdf1.text('Luas Keseluruhan Lahan', 20, y)
+    y += 8
+    pdf1.setFont('helvetica', 'bold')
+    pdf1.setFontSize(11)
+    pdf1.text(luas, 20, y)
+    y += 14
+
+    pdf1.setFont('helvetica', 'normal')
+    pdf1.setFontSize(12)
+    pdf1.text('Titik Koordinat', 20, y)
+    y += 8
+    pdf1.setFont('helvetica', 'bold')
+    pdf1.setFontSize(11)
+    pdf1.text('(' + koordinat + ')', 20, y)
+
+    const pdf1Blob = pdf1.output('blob')
+    if (pdf1Blob.size > 5 * 1024 * 1024) {
+      errorEl.textContent = 'PDF Lokasi Administratif melebihi 5 MB. Persingkat teks.'
+      errorEl.style.display = 'block'
+      btn.disabled = false
+      btn.textContent = 'Generate PDF'
+      return
+    }
+
+    // === Dokumen Foto Tampak Depan ===
+    const pdf2 = new jsPDF('p', 'mm', 'a4')
+    const pdf2W = pdf2.internal.pageSize.getWidth()
+    const pdf2H = pdf2.internal.pageSize.getHeight()
+
+    let imgData
+    if (fotoFile.type === 'image/webp' || fotoFile.size > 2 * 1024 * 1024) {
+      const compressed = await imageCompression(fotoFile, {
+        maxSizeMB: 1,
+        maxWidthOrHeight: 1920,
+        useWebWorker: true,
+        fileType: 'image/jpeg',
+        initialQuality: 0.75,
+      })
+      imgData = await new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = e => resolve(e.target.result)
+        reader.onerror = reject
+        reader.readAsDataURL(compressed)
+      })
+    } else {
+      imgData = await new Promise((resolve, reject) => {
+        const reader = new FileReader()
+        reader.onload = e => resolve(e.target.result)
+        reader.onerror = reject
+        reader.readAsDataURL(fotoFile)
+      })
+    }
+
+    const img = new Image()
+    img.src = imgData
+    await new Promise((resolve, reject) => {
+      img.onload = resolve
+      img.onerror = reject
+    })
+
+    const imgRatio = img.width / img.height
+    const pageRatio = pdf2W / pdf2H
+    let renderW, renderH, offsetX, offsetY
+    if (imgRatio > pageRatio) {
+      renderW = pdf2W
+      renderH = pdf2W / imgRatio
+      offsetX = 0
+      offsetY = (pdf2H - renderH) / 2
+    } else {
+      renderH = pdf2H
+      renderW = pdf2H * imgRatio
+      offsetX = (pdf2W - renderW) / 2
+      offsetY = 0
+    }
+
+    pdf2.addImage(imgData, 'JPEG', offsetX, offsetY, renderW, renderH, undefined, 'FAST')
+
+    const pdf2Blob = pdf2.output('blob')
+    if (pdf2Blob.size > 5 * 1024 * 1024) {
+      const pdf2High = new jsPDF('p', 'mm', 'a4')
+      pdf2High.addImage(imgData, 'JPEG', offsetX, offsetY, renderW, renderH, undefined, 'SLOW')
+      const pdf2HighBlob = pdf2High.output('blob')
+      if (pdf2HighBlob.size > 5 * 1024 * 1024) {
+        const canvas = document.createElement('canvas')
+        const ctx = canvas.getContext('2d')
+        canvas.width = 800
+        canvas.height = Math.round(800 / imgRatio)
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+        const smallerData = canvas.toDataURL('image/jpeg', 0.6)
+        const pdf2Final = new jsPDF('p', 'mm', 'a4')
+        pdf2Final.addImage(smallerData, 'JPEG', offsetX, offsetY, renderW, renderH)
+        const finalBlob = pdf2Final.output('blob')
+        const url1 = URL.createObjectURL(pdf1Blob)
+        const url2 = URL.createObjectURL(finalBlob)
+        showOssDownloads(url1, url2)
+        btn.disabled = false
+        btn.textContent = '&#9889; Generate PDF'
+        return
+      }
+      const url1 = URL.createObjectURL(pdf1Blob)
+      const url2 = URL.createObjectURL(pdf2HighBlob)
+      showOssDownloads(url1, url2)
+      btn.disabled = false
+      btn.textContent = '&#9889; Generate PDF'
+      return
+    }
+
+    const url1 = URL.createObjectURL(pdf1Blob)
+    const url2 = URL.createObjectURL(pdf2Blob)
+    showOssDownloads(url1, url2)
+  } catch (e) {
+    errorEl.textContent = 'Gagal generate PDF: ' + e.message
+    errorEl.style.display = 'block'
+  }
+
+  btn.disabled = false
+  btn.textContent = '&#9889; Generate PDF'
+}
+
+function showOssDownloads(url1, url2) {
+  const area = document.getElementById('ossDownloadArea')
+  area.style.display = 'flex'
+  area.innerHTML = `
+    <a href="${url1}" download="dokumen-lokasi-administratif.pdf" class="btn">&#8615; Download Dokumen Lokasi Administratif</a>
+    <a href="${url2}" download="dokumen-foto-tampak-depan.pdf" class="btn">&#8615; Download Dokumen Foto Tampak Depan</a>
+  `
+}
+
+function bindOssPdfEvents() {
+  document.getElementById('ossAlamat').addEventListener('input', ossUpdatePreview)
+  document.getElementById('ossLuas').addEventListener('input', ossUpdatePreview)
+  document.getElementById('ossKoordinat').addEventListener('input', ossUpdatePreview)
+
+  document.getElementById('ossTemplateSelect').addEventListener('change', e => {
+    if (e.target.value === '__save__') {
+      ossSaveTemplate()
+    } else {
+      ossLoadTemplate()
+    }
+  })
+
+  const deleteBtn = document.getElementById('ossDeleteTemplate')
+  if (deleteBtn) deleteBtn.addEventListener('click', ossDeleteTemplate)
+
+  document.getElementById('ossUploadArea').addEventListener('click', () => {
+    document.getElementById('ossFotoInput').click()
+  })
+
+  document.getElementById('ossFotoInput').addEventListener('change', e => {
+    const file = e.target.files[0]
+    if (!file) return
+    document.getElementById('ossFotoName').textContent = file.name
+    document.getElementById('ossFotoSize').textContent = (file.size / 1024).toFixed(1) + ' KB'
+    document.getElementById('previewFotoStatus').textContent = file.name + ' (' + (file.size / 1024).toFixed(1) + ' KB)'
+    const reader = new FileReader()
+    reader.onload = ev => {
+      const img = document.getElementById('ossFotoImg')
+      img.src = ev.target.result
+      document.getElementById('ossFotoPreview').style.display = 'block'
+    }
+    reader.readAsDataURL(file)
+  })
+
+  document.getElementById('ossGenerateBtn').addEventListener('click', ossGeneratePdf)
+}
+
 /* ===== Navigation ===== */
 
 const routes = {
@@ -1056,6 +1404,7 @@ const routes = {
   reguler: { title: 'Reguler', render: renderReguler },
   fasilitasi: { title: 'Fasilitasi', render: renderFasilitasi },
   p3h: { title: 'Pendamping Halal', render: renderP3H },
+  'oss-pdf': { title: 'OSS PDF Generator', render: renderOssPdf },
 }
 
 function selectClient(id) {
@@ -1261,6 +1610,7 @@ function bindEvents(page) {
     const p3Notes = document.getElementById('p3Notes')
     if (p3Notes) p3Notes.addEventListener('input', e => { c.permits.p3h.notes = e.target.value; saveState() })
   }
+  if (page === 'oss-pdf') bindOssPdfEvents()
 }
 
 function bindPermitSteps(c, moduleKey, prefix) {
