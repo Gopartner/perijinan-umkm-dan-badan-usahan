@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fasilitasi - Perizinan UMKM</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <aside id="sidebar">
+      <div class="sidebar-header">
+        <h2>Perizinan UMKM</h2>
+        <button id="themeToggle" aria-label="Toggle dark mode">&#9790;</button>
+      </div>
+      <div class="sidebar-search">
+        <input type="text" id="searchInput" placeholder="Cari materi...">
+      </div>
+      <nav id="sidebarNav">
+        <ul>
+          <li><a href="../index.html#dashboard" data-page="dashboard">&#9679; Dashboard</a></li>
+          <li><a href="../index.html#self-declare" data-page="self-declare">&#9679; Self Declare</a></li>
+          <li><a href="../index.html#reguler" data-page="reguler">&#9679; Reguler</a></li>
+          <li><a href="../index.html#fasilitasi" data-page="fasilitasi" class="active">&#9679; Fasilitasi</a></li>
+          <li><a href="../index.html#p3h" data-page="p3h">&#9679; Pendamping Halal</a></li>
+        </ul>
+      </nav>
+      <div class="sidebar-footer">
+        <button id="exportBtn">&#8615; Export PDF</button>
+      </div>
+    </aside>
+    <main id="mainContent">
+      <div id="viewContainer">
+        <div class="view active">
+          <div class="view-header">
+            <h1>Fasilitasi</h1>
+            <p>Program bantuan dan fasilitasi pemerintah untuk UMKM</p>
+          </div>
+          <p style="color:var(--text-secondary);">
+            Buka <a href="../index.html#fasilitasi" style="color:var(--accent);">Dashboard Utama &#8594;</a> untuk pengalaman SPA penuh dengan progress tersimpan, dark mode, dan export PDF.
+          </p>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="../assets/js/app.js"></script>
+</body>
+</html>

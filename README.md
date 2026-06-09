@@ -1,4 +1,4 @@
-# perijinan-umkm-dan-badan-usahan
+# perizinan-umkm-dan-badan-usahan
 untuk simapan data client umk dan dokumen pribadi
 # Data Pemilik Usaha
 
