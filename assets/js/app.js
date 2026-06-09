@@ -31,6 +31,342 @@ const PERMIT_INFO = {
   },
 }
 
+const TUTORIALS = {
+  selfDeclare: {
+    title: 'Panduan Sertifikat Halal Self Declare',
+    intro: 'Skema Self Declare adalah jalur sertifikasi halal GRATIS untuk usaha mikro dengan omzet maksimal Rp300 juta/tahun. Pelaku usaha cukup menyatakan kesesuaian produk secara mandiri melalui OSS.',
+    syaratUmum: [
+      'Omzet maksimal Rp300 juta/tahun (buktikan dengan laporan keuangan atau surat pernyataan)',
+      'Produk tidak berisiko (tidak mengandung bahan berbahaya)',
+      'Proses produksi sederhana',
+      'Tidak memerlukan pengawasan khusus dari LPH',
+    ],
+    penting: 'WAJIB punya NIB (Nomor Induk Berusaha) dulu. Jika belum punya, ikuti langkah Self Declare di OSS untuk mendapatkan NIB terlebih dahulu.',
+    steps: [
+      {
+        title: 'Siapkan Dokumen',
+        detail: 'Kumpulkan semua dokumen berikut dalam bentuk scan/foto jelas (format JPG/PNG/PDF, max 2MB per file):',
+        items: [
+          'KTP (Kartu Tanda Penduduk) — pastikan masih berlaku',
+          'KK (Kartu Keluarga) — semua halaman',
+          'NPWP (jika sudah punya) — kalau belum, bisa diurus dulu di pajak.go.id',
+          'Pas Foto ukuran 3x4 latar merah/putih (2 lembar)',
+          'Surat Keterangan Domisili Usaha dari kelurahan (jika diperlukan)',
+          'Dokumen pendukung usaha (foto produk, brosur, dll)',
+        ],
+        tips: ['Simpan semua file dengan nama rapi: KTP_nama, KK_nama, NPWP_nama', 'Gunakan aplikasi scanner HP atau CamScanner', 'Pastikan file tidak buram dan teks terbaca jelas'],
+      },
+      {
+        title: 'Buka Website OSS',
+        detail: 'Buka portal OSS (Online Single Submission) melalui browser (Chrome/Edge/Firefox):',
+        link: { url: 'https://oss.go.id', label: 'oss.go.id' },
+        items: [
+          'Klik tombol "Daftar" atau "Register" di pojok kanan atas',
+          'Pilih "Akun Pelaku Usaha" sebagai jenis pendaftaran',
+          'Masukkan email aktif dan nomor HP untuk verifikasi',
+          'Cek email untuk kode OTP dan link verifikasi',
+        ],
+        tips: ['Gunakan email yang sering dicek (Gmail disarankan)', 'Catat password akun OSS di tempat aman', 'Password minimal 8 karakter, kombinasi huruf dan angka'],
+      },
+      {
+        title: 'Login & Isi Profil Usaha',
+        detail: 'Setelah akun terverifikasi, login ke dashboard OSS:',
+        items: [
+          'Masukkan email dan password yang sudah didaftarkan',
+          'Klik menu "Data Pelaku Usaha" untuk melengkapi profil',
+          'Isi data diri: NIK, nama lengkap, alamat, tanggal lahir — pastikan sesuai KTP',
+          'Isi data usaha: nama usaha, bidang usaha, alamat usaha',
+          'Pilih skala usaha "Usaha Mikro"',
+          'Tentukan jenis bidang usaha (makanan/minuman/jasa, dll)',
+          'Lengkapi data kontak: nomor HP, email, media sosial (jika ada)',
+        ],
+        tips: ['Data yang diisi harus SAMA PERSIS dengan KTP dan dokumen resmi', 'Jika ada perbedaan data, proses bisa ditolak', 'Gunakan nama usaha yang sesuai dengan izin usaha yang dimiliki'],
+        masalah: [
+          { judul: 'Data tidak valid', solusi: 'Periksa kembali NIK dan pastikan sesuai data Dukcapil. Cek di dukcapil.go.id jika perlu' },
+          { judul: 'Email sudah terdaftar', solusi: 'Gunakan fitur "Lupa Password" untuk mereset akun lama' },
+        ],
+      },
+      {
+        title: 'Ajukan Pernyataan Mandiri Halal',
+        detail: 'Setelah profil lengkap, ajukan pernyataan mandiri untuk sertifikat halal:',
+        items: [
+          'Di dashboard OSS, cari menu "Perizinan Berusaha" atau "PB UMK"',
+          'Pilih "Pernyataan Mandiri" sebagai jenis permohonan',
+          'Pilih sub-jenis: "Sertifikat Halal Self Declare"',
+          'Baca dan pahami pernyataan yang muncul — ini adalah pernyataan resmi Anda',
+          'Centang semua persyaratan yang sudah dipenuhi',
+          'Upload dokumen yang sudah disiapkan di langkah 1',
+          'Klik "Ajukan" atau "Submit" untuk mengirim permohonan',
+        ],
+        tips: ['Baca pernyataan dengan teliti sebelum mencentang', 'Jangan asal centang — pastikan Anda benar-benar memenuhi syarat', 'Proses ini gratis, tidak ada biaya apapun'],
+        masalah: [
+          { judul: 'Menu Self Declare tidak muncul', solusi: 'Pastikan skala usaha Anda terdaftar sebagai "Usaha Mikro". Jika tidak, ubah di profil usaha terlebih dahulu' },
+          { judul: 'Dokumen ditolak sistem', solusi: 'Periksa format file (harus JPG/PNG/PDF), ukuran max 2MB, dan pastikan file tidak rusak' },
+        ],
+      },
+      {
+        title: 'Cetak NIB & Sertifikat Halal',
+        detail: 'Setelah disetujui (biasanya 1-3 hari kerja), Anda bisa mencetak:',
+        items: [
+          'NIB (Nomor Induk Berusaha) — izin dasar usaha',
+          'Sertifikat Halal — bukti legal produk halal',
+          'Login ke OSS, buka menu "Perizinan Saya" atau "My License"',
+          'Klik tombol "Cetak" atau "Download" untuk mengunduh dokumen PDF',
+          'Simpan file PDF dan cetak untuk ditempel di tempat usaha',
+        ],
+        tips: ['Cetak NIB dan Sertifikat Halal di kertas berpura (minimal 80 gram)', 'Laminate dokumen agar awet', 'Tempel di tempat yang mudah terlihat oleh pelanggan'],
+        masalah: [
+          { judul: 'Sertifikat belum terbit setelah 7 hari', solusi: 'Hubungi call center OSS di 1500-677 atau email ke helpdesk@oss.go.id. Siapkan NIB untuk referensi' },
+          { judul: 'Data NIB tidak sesuai', solusi: 'Ajukan perbaikan data melalui menu "Perbaikan Data" di dashboard OSS' },
+        ],
+      },
+    ],
+  },
+  reguler: {
+    title: 'Panduan Sertifikat Halal Reguler',
+    intro: 'Skema Reguler untuk usaha kecil-menengah dengan omzet di atas Rp300 juta/tahun. Wajib melalui LPH (Lembaga Pemeriksa Halal) dan Sidang Fatwa MUI. Biaya bervariasi tergantung LPH, mulai Rp1-5 juta.',
+    syaratUmum: [
+      'Omzet di atas Rp300 juta/tahun',
+      'Produk dan proses produksi kompleks',
+      'Wajib audit oleh LPH terafiliasi MUI',
+      'Harus memiliki NIB terlebih dahulu',
+    ],
+    penting: 'Proses reguler lebih panjang (30-60 hari) tapi sertifikat diakui secara nasional dan internasional. Biaya tergantung jumlah produk dan kompleksitas audit.',
+    steps: [
+      {
+        title: 'Daftar Akun SIHALAL',
+        detail: 'Buat akun di portal SIHALAL (Sistem Informasi Halal) BPJPH:',
+        link: { url: 'https://ptsp.halal.go.id', label: 'ptsp.halal.go.id' },
+        items: [
+          'Klik "Daftar" dan pilih "Pelaku Usaha" sebagai jenis akun',
+          'Masukkan NIK, nama lengkap, email, dan nomor HP',
+          'Upload scan KTP dan NPWP untuk verifikasi akun',
+          'Cek email untuk aktivasi akun',
+          'Login menggunakan email dan password yang sudah diaktivasi',
+        ],
+        tips: ['Pastikan data NIK sama persis dengan KTP', 'Gunakan email yang sama dengan yang didaftarkan di OSS untuk sinkronisasi data'],
+        masalah: [
+          { judul: 'Verifikasi akun ditolak', solusi: 'Fotokopi KTP dan NPWP harus jelas dan sesuai data. Upload ulang dengan kualitas gambar lebih baik' },
+        ],
+      },
+      {
+        title: 'Upload Dokumen Persyaratan',
+        detail: 'Setelah login, upload dokumen yang diperlukan:',
+        items: [
+          'Fotokopi KTP (yang sudah dilegalisir)',
+          'Fotokopi NPWP',
+          'NIB (Nomor Induk Berusaha)',
+          'Daftar Produk dan Bahan yang digunakan — detail, termasuk bahan baku, bahan tambahan, dan bahan penolong',
+          'Surat Pernyataan Kebenaran Dokumen (bermeterai Rp10.000)',
+        ],
+        tips: ['Buat daftar produk dan bahan dengan format Excel/PDF yang rapi', 'Sertakan nama pemasok untuk setiap bahan', 'Jika ada sertifikat halal dari supplier, lampirkan untuk mempercepat proses'],
+      },
+      {
+        title: 'Pilih LPH (Lembaga Pemeriksa Halal)',
+        detail: 'Pilih LPH yang terafiliasi dengan MUI untuk melakukan audit:',
+        items: [
+          'Di dashboard SIHALAL, pilih menu "Pilih LPH"',
+          'Akan muncul daftar LPH yang tersedia di wilayah Anda',
+          'Bandingkan biaya, estimasi waktu, dan reputasi masing-masing LPH',
+          'Pilih LPH dan klik "Konfirmasi"',
+          'LPH akan menghubungi Anda untuk negosiasi jadwal audit dan biaya',
+        ],
+        tips: ['Pilih LPH yang sudah berpengalaman dengan jenis usaha Anda', 'Minta kuitansi/resmi untuk biaya audit sebagai bukti pengeluaran', 'Beberapa LPH menawarkan paket bundling (audit + pendampingan)'],
+        masalah: [
+          { judul: 'Tidak ada LPH di daerah Anda', solusi: 'Hubungi BPJPH provinsi untuk informasi LPH terdekat. Bisa juga menggunakan LPH dari provinsi tetangga dengan biaya transportasi tambahan' },
+        ],
+      },
+      {
+        title: 'Jadwalkan & Ikuti Audit LPH',
+        detail: 'Auditor LPH akan melakukan pemeriksaan langsung ke tempat usaha Anda:',
+        items: [
+          'Koordinasikan jadwal audit dengan LPH (pilih hari di mana produksi sedang berjalan normal)',
+          'Siapkan seluruh dokumen asli untuk diperiksa auditor',
+          'Siapkan area produksi yang bersih dan tertib — auditor akan melihat langsung',
+          'Auditor akan mewawancarai pemilik dan karyawan terkait proses produksi',
+          'Audit biasanya memakan waktu 2-4 jam tergantung kompleksitas usaha',
+          'Setelah audit, LPH akan mengirimkan laporan hasil audit ke MUI',
+        ],
+        tips: ['Bersihkan area produksi sebelum audit', 'Siapkan karyawan yang paham proses produksi untuk diwawancarai', 'Jangan ragu bertanya ke auditor jika ada yang kurang jelas', 'Catat temuan auditor untuk perbaikan ke depannya'],
+        masalah: [
+          { judul: 'Audit gagal / tidak lulus', solusi: 'Auditor akan memberikan catatan perbaikan. Perbaiki sesuai rekomendasi dan ajukan audit ulang. Tidak perlu membayar penuh, cukup biaya audit ulang (biasanya diskon)' },
+          { judul: 'Audit ditunda', solusi: 'Hubungi LPH untuk menjadwalkan ulang. Usahakan tidak menunda lebih dari 2 minggu karena akan memperpanjang proses' },
+        ],
+      },
+      {
+        title: 'Sidang Fatwa MUI',
+        detail: 'Setelah laporan audit diterima, Komisi Fatwa MUI akan bersidang:',
+        items: [
+          'Laporan audit dari LPH akan direview oleh tim Komisi Fatwa MUI',
+          'Jika ada kekurangan, MUI akan meminta klarifikasi tambahan',
+          'Sidang Fatwa biasanya dilakukan secara periodik (1-2 kali sebulan)',
+          'Keputusan ditetapkan dalam Sidang Komisi Fatwa MUI',
+          'Anda akan mendapat notifikasi hasil sidang melalui SIHALAL',
+        ],
+        tips: ['Proses sidang fatwa biasanya memakan waktu 1-3 minggu', 'Tidak perlu hadir dalam sidang — cukup tunggu hasilnya', 'Jika ditolak, MUI akan memberikan alasan dan saran perbaikan'],
+      },
+      {
+        title: 'Terbit Sertifikat Halal',
+        detail: 'Setelah sidang fatwa menyetujui, sertifikat halal resmi terbit:',
+        items: [
+          'Sertifikat Halal diterbitkan oleh BPJPH berdasarkan penetapan fatwa MUI',
+          'Anda akan mendapat notifikasi melalui email dan dashboard SIHALAL',
+          'Download Sertifikat Halal dalam format PDF dari dashboard',
+          'Sertifikat berlaku selama 4 tahun (wajib diperpanjang sebelum habis)',
+          'Catat nomor sertifikat dan masa berlaku untuk pengingat perpanjangan',
+        ],
+        tips: ['Segera unduh sertifikat setelah notifikasi diterima', 'Simpan file digital di cloud (Google Drive, Dropbox) sebagai backup', 'Pasang logo halal di kemasan produk sesuai ketentuan BPJPH', 'Catat masa berlaku 4 tahun dan set pengingat perpanjangan 6 bulan sebelumnya'],
+        masalah: [
+          { judul: 'Sertifikat tidak kunjung terbit setelah fatwa', solusi: 'Hubungi BPJPH di call center 1500-676 atau email ke info@bpjph.go.id' },
+          { judul: 'Data produk salah di sertifikat', solusi: 'Ajukan revisi melalui SIHALAL dengan melampirkan bukti data yang benar' },
+        ],
+      },
+    ],
+  },
+  fasilitasi: {
+    title: 'Panduan Fasilitasi & Bantuan UMKM',
+    intro: 'Program fasilitasi pemerintah membantu UMKM mendapatkan sertifikasi halal GRATIS (SEHATI) dan bantuan modal (BPUM, KUR). Pantau terus karena program dibuka secara periodik.',
+    penting: 'Fasilitasi paling populer adalah SEHATI (Sertifikasi Halal Gratis) — daftar di SIHALAL dengan memilih "Fasilitasi" sebagai jalur pendaftaran. Biaya ditanggung pemerintah.',
+    steps: [
+      {
+        title: 'SEHATI (Sertifikasi Halal Gratis)',
+        detail: 'Program SEHATI dari BPJPH untuk pelaku UMKM mendapatkan sertifikat halal GRATIS. Biaya sepenuhnya ditanggung pemerintah.',
+        link: { url: 'https://ptsp.halal.go.id', label: 'Daftar di SIHALAL' },
+        items: [
+          'Login ke SIHALAL (ptsp.halal.go.id)',
+          'Pilih menu "Daftar Sertifikasi Halal"',
+          'Pilih jalur "Fasilitasi" atau "SEHATI"',
+          'Isi data diri dan usaha',
+          'Upload dokumen yang diminta',
+          'Submit pendaftaran dan tunggu verifikasi',
+          'Jika diterima, Anda akan mendapat SK Penetapan sebagai penerima fasilitasi',
+          'Proses selanjutnya sama seperti Self Declare atau Reguler (tergantung skema yang dipilih)',
+        ],
+        tips: ['SEHATI dibuka secara periodik (biasanya per triwulan)', 'Pantau Instagram @bpjph atau website bpjph.go.id untuk info pembukaan', 'Siapkan dokumen JAUH-JAUH hari sebelum pendaftaran dibuka', 'Momentum terbaik: awal tahun anggaran (Jan-Maret) biasanya banyak kuota'],
+        masalah: [
+          { judul: 'Kuota SEHATI sudah penuh', solusi: 'Tunggu pembukaan gelombang berikutnya. Biasanya ada 3-4 gelombang per tahun. Manfaatkan waktu untuk melengkapi dokumen' },
+          { judul: 'Tidak masuk kriteria penerima', solusi: 'Pastikan omzet di bawah Rp300jt untuk Self Declare atau di atasnya untuk Reguler. Cek persyaratan detail di website BPJPH' },
+        ],
+      },
+      {
+        title: 'BPUM / BLT UMKM',
+        detail: 'Bantuan Presiden untuk Pelaku Usaha Mikro (BPUM) — bantuan langsung tunai Rp1,2 juta untuk usaha mikro yang terdampak ekonomi.',
+        items: [
+          'Cek informasi pembukaan BPUM di website Kemenkop UKM atau Dinas Koperasi setempat',
+          'Syarat: WNI, memiliki usaha mikro, bukan ASN/TNI/POLRI, belum pernah menerima',
+          'Siapkan KTP, KK, dan Surat Keterangan Usaha (SKU) dari kelurahan',
+          'Daftar melalui Dinas Koperasi dan UKM kabupaten/kota',
+          'Atau daftar online melalui website resmi Kemenkop UKM (jika dibuka)',
+          'Tunggu verifikasi dan penetapan penerima',
+          'Dana ditransfer langsung ke rekening penerima',
+        ],
+        tips: ['BPUM tidak dibuka setiap saat — pantau info terbaru', 'Bergabung dengan grup WA UMKM di daerah Anda untuk info cepat', 'Pastikan data rekening bank benar agar dana tidak gagal transfer'],
+      },
+      {
+        title: 'KUR (Kredit Usaha Rakyat)',
+        detail: 'Kredit modal kerja/investasi dengan bunga rendah (6% efektif per tahun) untuk pelaku UMKM. Tidak butuh agunan untuk pinjaman sampai Rp50 juta.',
+        link: { url: 'https://kur.ekon.go.id', label: 'kur.ekon.go.id' },
+        items: [
+          'Datang ke bank penyalur KUR (BRI, BNI, Mandiri, BTN, BSI) terdekat',
+          'Bawa dokumen: KTP, KK, NPWP, NIB, Surat Keterangan Usaha',
+          'Isi formulir permohonan KUR di bank',
+          'Bank akan melakukan survei ke tempat usaha',
+          'Jika disetujui, dana cair dalam 3-7 hari kerja',
+          'Pinjaman max Rp50 juta tanpa agunan, Rp500 juta dengan agunan',
+        ],
+        tips: ['Jangan meminjam lebih dari kemampuan bayar — hitung dulu cicilan per bulan', 'Gunakan KUR untuk pengembangan usaha, bukan untuk konsumtif', 'Bandungkan bunga antar bank sebelum memutuskan'],
+      },
+    ],
+  },
+  p3h: {
+    title: 'Panduan Menjadi Pendamping Halal (P3H)',
+    intro: 'Pendamping Proses Produk Halal (P3H) adalah profesi yang membantu pelaku UMKM dalam proses sertifikasi halal. Dengan menjadi P3H, Anda bisa mendapatkan insentif Rp4-20 juta dari pemerintah.',
+    syaratUmum: [
+      'Pendidikan minimal SMA/sederajat',
+      'Mengikuti Bimtek P3H yang diselenggarakan BPJPH',
+      'Lulus ujian kompetensi P3H',
+      'Terdaftar di BPJPH sebagai P3H aktif',
+    ],
+    penting: 'Insentif P3H: Rp4-20 juta per pendamping per tahun (tergantung jumlah UMKM yang didampingi). Semakin banyak UMKM yang berhasil disertifikasi, semakin besar insentifnya.',
+    steps: [
+      {
+        title: 'Cari Informasi Bimtek P3H',
+        detail: 'Bimtek (Bimbingan Teknis) P3H diselenggarakan oleh BPJPH bekerja sama dengan perguruan tinggi, ormas Islam, dan lembaga pendamping.',
+        items: [
+          'Pantau website resmi BPJPH (bpjph.go.id) untuk jadwal bimtek',
+          'Hubungi Kementerian Agama provinsi/kabupaten untuk info bimtek terdekat',
+          'Cari informasi di grup sosial media: Facebook "Pendamping Halal Indonesia", WhatsApp group',
+          'Perguruan tinggi dan pondok pesantren sering menjadi tuan rumah bimtek',
+          'Biaya bimtek bervariasi: ada yang gratis (fasilitasi pemerintah) hingga Rp500 ribu (swadana)',
+        ],
+        tips: ['Bimtek gratis biasanya terbatas kuotanya — daftar segera setelah diumumkan', 'Bimtek online lebih fleksibel, bimtek offline lebih interaktif', 'Pilih bimtek yang sudah terverifikasi BPJPH — tanyakan nomor registrasi kegiatan'],
+        link: { url: 'https://bpjph.go.id', label: 'bpjph.go.id' },
+      },
+      {
+        title: 'Ikuti Bimtek P3H',
+        detail: 'Bimtek biasanya dilaksanakan 3-5 hari, mencakup materi:',
+        items: [
+          'Kebijakan Jaminan Produk Halal (JPH) di Indonesia',
+          'Regulasi: UU No. 33/2014, PP No. 39/2021, PMA No. 26/2019',
+          'Tata cara pendampingan self declare',
+          'Penggunaan aplikasi SIHALAL untuk pendamping',
+          'Teknik wawancara dan verifikasi kesesuaian produk',
+          'Pengisian formulir dan dokumen pendampingan',
+          'Simulasi pendampingan langsung',
+        ],
+        tips: ['Catat materi penting — akan diujikan di ujian kompetensi', 'Bertanyalah jika ada yang kurang jelas — ini kesempatan belajar langsung', 'Kenali sesama peserta untuk jaringan (networking) ke depannya'],
+      },
+      {
+        title: 'Ikuti Ujian Kompetensi P3H',
+        detail: 'Setelah bimtek, Anda harus mengikuti ujian kompetensi untuk mendapatkan sertifikat P3H:',
+        items: [
+          'Ujian dilaksanakan oleh Lembaga Sertifikasi Kompetensi (LSK) yang ditunjuk BPJPH',
+          'Materi ujian: pengetahuan regulasi, proses pendampingan, etika pendamping, simulasi kasus',
+          'Bentuk ujian: pilihan ganda + studi kasus + wawancara',
+          'Nilai minimal kelulusan: 70 (skala 100)',
+          'Jika tidak lulus, bisa mengulang di periode berikutnya (ada biaya pendaftaran ulang)',
+        ],
+        tips: ['Pelajari modul bimtek dengan baik sebelum ujian', 'Fokus pada alur pendampingan self declare — ini yang utama', 'Latihan studi kasus: bagaimana membantu UMKM yang dokumennya tidak lengkap', 'Tenang dan percaya diri saat ujian'],
+        masalah: [
+          { judul: 'Tidak lulus ujian', solusi: 'Jangan putus asa. Catat materi yang lemah, belajar lagi, dan ikut ujian ulang. Banyak P3H yang baru lulus di percobaan kedua' },
+        ],
+      },
+      {
+        title: 'Terbit SK P3H & Daftar BPJPH',
+        detail: 'Setelah lulus ujian, Anda akan mendapat Surat Keterangan (SK) sebagai P3H:',
+        items: [
+          'SK diterbitkan oleh BPJPH melalui sistem SIHALAL',
+          'Anda terdaftar resmi sebagai P3H di database BPJPH',
+          'Anda akan mendapat akun pendamping di SIHALAL',
+          'Login ke SIHALAL untuk melihat dashboard pendamping',
+          'Lengkapi profil sebagai pendamping di SIHALAL',
+          'Anda siap mulai mendampingi pelaku UMKM',
+        ],
+        tips: ['Segera lengkapi profil pendamping setelah SK terbit', 'Aktifkan notifikasi SIHALAL agar tidak ketinggalan info', 'Miliki kartu P3H fisik sebagai identitas saat ke lapangan'],
+      },
+      {
+        title: 'Mulai Pendampingan & Dapat Insentif',
+        detail: 'Sebagai P3H Anda mendampingi UMKM dan mendapat insentif:',
+        items: [
+          'Cari pelaku UMKM yang membutuhkan sertifikasi halal (self declare)',
+          'Bantu UMKM menyiapkan dokumen yang diperlukan',
+          'Daftarkan UMKM binaan Anda melalui akun pendamping di SIHALAL',
+          'Lakukan pendampingan: verifikasi kesesuaian produk, wawancara, dokumentasi',
+          'Setiap UMKM yang berhasil terbit sertifikatnya, Anda mendapat poin',
+          'Insentif dihitung per UMKM yang berhasil didampingi: Rp100-500 ribu per UMKM',
+          'Insentif total per tahun: Rp4-20 juta tergantung jumlah UMKM binaan',
+          'Insentif dicairkan oleh BPJPH setiap triwulan melalui transfer bank',
+        ],
+        tips: ['Targetkan 20-40 UMKM per tahun untuk insentif maksimal', 'Bangun kerjasama dengan kelurahan, koperasi, atau komunitas UMKM', 'Dokumentasikan setiap proses pendampingan dengan baik', 'Jaga hubungan baik dengan UMKM binaan — mereka bisa menjadi sumber referral'],
+        masalah: [
+          { judul: 'Insentif telat cair', solusi: 'Hubungi BPJPH atau Dinas Koperasi setempat. Biasanya keterlambatan karena proses administrasi. Siapkan bukti pendampingan lengkap' },
+          { judul: 'UMKM binaan tidak lolos', solusi: 'Bantu perbaiki kekurangan dan daftarkan lagi. Evaluasi apa yang kurang dari proses pendampingan Anda' },
+        ],
+      },
+    ],
+  },
+}
+
 /* ===== Helpers ===== */
 
 function saveState() {
@@ -133,6 +469,91 @@ function renderClientDetail(c) {
       </div>
     </div>
   `
+}
+
+/* ===== Tutorial Renderer ===== */
+
+function renderTutorial(moduleKey) {
+  const t = TUTORIALS[moduleKey]
+  if (!t) return ''
+  return `
+    <div class="card tutorial-card">
+      <h3 class="tutorial-title">${t.title}</h3>
+      <p class="tutorial-intro">${t.intro}</p>
+
+      ${t.syaratUmum ? `
+        <div class="tutorial-section">
+          <h4>&#9679; Syarat Umum</h4>
+          <ul class="tutorial-list">
+            ${t.syaratUmum.map(s => `<li>${s}</li>`).join('')}
+          </ul>
+        </div>
+      ` : ''}
+
+      ${t.penting ? `
+        <div class="tutorial-section tutorial-penting">
+          <strong>&#9888; PENTING:</strong> ${t.penting}
+        </div>
+      ` : ''}
+
+      <div class="tutorial-section">
+        <h4>&#9679; Panduan Langkah demi Langkah</h4>
+      </div>
+
+      ${t.steps.map((step, idx) => `
+        <div class="tutorial-step">
+          <div class="tutorial-step-header" onclick="toggleTutorial(this)">
+            <span class="tutorial-step-num">${idx + 1}</span>
+            <span class="tutorial-step-title">${step.title}</span>
+            <span class="tutorial-toggle">&#9660;</span>
+          </div>
+          <div class="tutorial-step-body">
+            <p>${step.detail}</p>
+            ${step.link ? `
+              <p style="margin:0.5rem 0;">
+                <a href="${step.link.url}" target="_blank" rel="noopener" class="tutorial-link">
+                  &#8594; ${step.link.label}
+                </a>
+              </p>
+            ` : ''}
+            <ul class="tutorial-list">
+              ${step.items.map(i => `<li>${i}</li>`).join('')}
+            </ul>
+            ${step.tips ? `
+              <div class="tutorial-tips">
+                <strong>&#128161; Tips:</strong>
+                <ul>
+                  ${step.tips.map(t => `<li>${t}</li>`).join('')}
+                </ul>
+              </div>
+            ` : ''}
+            ${step.masalah ? `
+              <div class="tutorial-masalah">
+                <strong>&#9888; Masalah & Solusi:</strong>
+                ${step.masalah.map(m => `
+                  <div class="masalah-item">
+                    <div class="masalah-judul">&#9679; ${m.judul}</div>
+                    <div class="masalah-solusi">${m.solusi}</div>
+                  </div>
+                `).join('')}
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `).join('')}
+    </div>`
+}
+
+function toggleTutorial(header) {
+  const body = header.nextElementSibling
+  const toggle = header.querySelector('.tutorial-toggle')
+  if (body.style.display === 'none' || body.style.display === '') {
+    body.style.display = 'block'
+    toggle.innerHTML = '&#9660;'
+  } else {
+    body.style.display = 'none'
+    toggle.innerHTML = '&#9654;'
+  }
 }
 
 /* ===== View Renderers ===== */
@@ -238,6 +659,8 @@ function renderSelfDeclare() {
         </div>
       </div>
 
+      ${renderTutorial('selfDeclare')}
+
       <div class="card">
         <div style="display:flex;justify-content:space-between;">
           <h3>Progress Tahapan</h3>
@@ -254,7 +677,8 @@ function renderSelfDeclare() {
       </div>
 
       <div class="card">
-        <h3>Langkah-langkah</h3>
+        <h3>Tracking Langkah</h3>
+        <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:0.75rem;">Centang setiap langkah yang sudah selesai, isi tanggal dan catatan.</p>
         <div class="timeline">
           ${p.steps.map((step, i, arr) => {
             const cls = getStepStatusClass(step, arr)
@@ -322,6 +746,8 @@ function renderReguler() {
         </div>
       </div>
 
+      ${renderTutorial('reguler')}
+
       <div class="card">
         <div style="display:flex;justify-content:space-between;">
           <h3>Progress Tahapan</h3>
@@ -331,7 +757,8 @@ function renderReguler() {
       </div>
 
       <div class="card">
-        <h3>Alur Sertifikasi Halal</h3>
+        <h3>Tracking Langkah</h3>
+        <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:0.75rem;">Centang setiap langkah yang sudah selesai, isi tanggal dan catatan.</p>
         <div class="timeline">
           ${p.steps.map((step, i, arr) => {
             const cls = getStepStatusClass(step, arr)
@@ -423,6 +850,8 @@ function renderFasilitasi() {
         </div>
       </div>
 
+      ${renderTutorial('fasilitasi')}
+
       <div class="card">
         <div style="display:flex;justify-content:space-between;">
           <h3>Progress Tahapan</h3>
@@ -432,7 +861,8 @@ function renderFasilitasi() {
       </div>
 
       <div class="card">
-        <h3>Langkah-langkah</h3>
+        <h3>Tracking Langkah</h3>
+        <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:0.75rem;">Centang setiap langkah yang sudah selesai.</p>
         <div class="timeline">
           ${p.steps.map((step, i, arr) => {
             const cls = getStepStatusClass(step, arr)
@@ -523,6 +953,8 @@ function renderP3H() {
         </div>
       </div>
 
+      ${renderTutorial('p3h')}
+
       <div class="card">
         <div style="display:flex;justify-content:space-between;">
           <h3>Progress Tahapan</h3>
@@ -532,7 +964,8 @@ function renderP3H() {
       </div>
 
       <div class="card">
-        <h3>Alur Sertifikasi P3H</h3>
+        <h3>Tracking Langkah</h3>
+        <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:0.75rem;">Centang setiap langkah yang sudah selesai.</p>
         <div class="timeline">
           ${p.steps.map((step, i, arr) => {
             const cls = getStepStatusClass(step, arr)
