@@ -1,150 +1,44 @@
-# perizinan-umkm-dan-badan-usahan
-untuk simapan data client umk dan dokumen pribadi
-# Data Pemilik Usaha
+# Perizinan UMKM & Badan Usaha
 
-## Nama
-```text
-DIAH LITASARI, S.PD
-```
+Aplikasi SPA untuk pendataan dan monitoring perizinan UMKM serta badan usaha. Dibangun dengan HTML, CSS, dan JavaScript murni — siap di-deploy ke GitHub Pages tanpa build process.
 
-## NIK
-```text
-3578066806740004
-```
+## Fitur
 
-## Alamat
-```text
-Jl. Pakis Wetan VII No. 14
-Surabaya
-```
+- **Dashboard** — Progress keseluruhan, statistik per modul, deadline pengurusan
+- **Self Declare** — Checklist persyaratan, simulasi pengisian, catatan kendala
+- **Reguler** — Timeline alur LPH/MUI, monitoring status sertifikasi halal
+- **Fasilitasi** — Daftar program bantuan pemerintah (BPUM, KUR, SEHATI), tracking pendaftaran
+- **P3H (Pendamping Halal)** — Checklist persyaratan, alur sertifikasi, referensi regulasi
+- **Dark mode** — Toggle tampilan gelap/terang
+- **Search** — Pencarian materi antar modul
+- **LocalStorage** — Progress dan catatan tersimpan otomatis di browser
+- **Export PDF** — Cetak laporan progress
 
-## Kode Pos
-```text
-60256
-```
-
-## Tempat / Tanggal Lahir
-```text
-28-06-1974
-```
-
-## RT / RW
-```text
-0014/003
-```
-
-## Jenis Usaha
-```text
-Terima Pesanan
-Catering
-Jualan Makanan Dendeng Ragi
-```
-
----
-
-# Data Usaha
-
-## Nama Usaha
-```text
-Litasari Catering
-```
-
-## Nomor Usaha
-```text
-081343194567
-```
-
----
-
-# Akun OSS
-
-## URL
-```text
-https://ujicoba-stg.oss.go.id/
-```
-
-## Email
-```text
+## Struktur Project
 
 ```
-
-## Password
-```text
-
+/
+├── index.html
+├── assets/
+│   ├── css/style.css
+│   ├── js/app.js
+│   └── images/
+├── modules/
+│   ├── self-declare.html
+│   ├── reguler.html
+│   ├── fasilitasi.html
+│   └── p3h.html
+└── README.md
 ```
 
----
+## Tech Stack
 
-# Akun Gmail
+- HTML5
+- CSS3 (CSS Variables, Flexbox, Grid)
+- Vanilla JavaScript (ES6+)
+- LocalStorage API
+- GitHub Pages
 
-## Email
-```text
-litasaricatering@gmail.com
-```
+## Deploy
 
-## Password
-```text
-Umkm@LitasariCatering1234
-```
-
----
-
-# Akun SiHalal
-
-## URL
-```text
-https://ptsp.halal.go.id/login
-```
-
-## Email
-```text
-litasaricatering@gmail.com
-```
-
-## Password
-```text
-Umkm@LitasariCatering1234
-```
-
----
-
-# Akun Kemenkum
-
-## URL
-```text
-https://pasti.kemenkum.go.id/register
-```
-
-## Email
-```text
-
-```
-
-## Password
-```text
-
-```
-
----
-
-# Template Pesan SiHalal
-
-```text
-Yth. Admin SiHalal,
-
-Saya pelaku usaha dengan NIB: 0106260030259.
-
-Saat ini data di akun SiHalal saya terdeteksi sebagai "PT", namun berdasarkan data di sistem OSS, jenis badan usaha saya adalah "Perorangan/Bukan Badan Hukum".
-
-Mohon bantuannya untuk melakukan sinkronisasi ulang data NIB saya agar sesuai dengan status aslinya di OSS.
-
-Terima kasih.
-```
-
----
-
-# Catatan
-
-```text
-Aneh
-```
+Push ke branch `Master`, GitHub Pages otomatis serve dari root.
